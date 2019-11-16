@@ -1,6 +1,6 @@
 # travel-ui
 
-> My wonderful travel project
+> My wonderful travel project (nuxt + express)
 
 ## Build Setup
 
