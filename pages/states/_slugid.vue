@@ -1,7 +1,6 @@
 <template>
   <div class="main-inner">
     <home-search />
-    <state-list class="px-64 my-8" />
     <section class="experience px-64 mb-8 mt-16">
       <div class="experience-heading w-full mb-4">
         <h2 class="experience-heading_title font-bold">
@@ -26,13 +25,11 @@
 
 <script>
 import HomeSearch from '~/components/home/searchContainer.vue'
-import StateList from '~/components/states/statesList.vue'
 import experiencesList from '~/components/experiences/experiencesList.vue'
 
 export default {
   components: {
     HomeSearch,
-    StateList,
     experiencesList
   },
   computed: {
@@ -40,12 +37,16 @@ export default {
       return this.$store.state.Experience.experience
     }
   },
-  async asyncData({ error, store }) {
+  async fetch({ route, params, error, store }) {
     try {
-      await store.dispatch('Experience/fetchAllExperience')
-      await store.dispatch('States/fetchAllStates')
+      await store.dispatch('Experience/fetchStateExperience', {
+        id: params.slugid.split('-')[2]
+      })
     } catch (e) {
-      error({ status: 500, message: e.message })
+      error({
+        statusCode: 404,
+        message: 'Bir Hata Oluştu. Lütfen daha sonra tekrar deneyiniz'
+      })
     }
   }
 }

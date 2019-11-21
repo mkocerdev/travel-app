@@ -8,7 +8,10 @@
     <section class="states-wrapper">
       <div v-for="(state, index) in states" :key="index" class="states-box">
         <div class="states-box__inner">
-          <a class="states-box__link" href="#">
+          <nuxt-link
+            :to="`/states/${state.seoLink}-deneyimler-${state.id}`"
+            class="states-box__link"
+          >
             <div class="states-box__img-wrapper">
               <img
                 :src="require('@/assets/images/' + state.photo)"
@@ -17,11 +20,9 @@
             </div>
             <div class="states-box__content">
               <h3 class="states-box__name">{{ state.name }}</h3>
-              <p class="states-box__toursSum">
-                28 seyahat
-              </p>
-            </div>
-          </a>
+              <p class="states-box__experienceSum">28 seyahat</p>
+            </div></nuxt-link
+          >
         </div>
       </div>
     </section>

@@ -56,15 +56,16 @@
         justify-content: center;
         z-index: 2;
         .home-slide__search-box{
-            background: white;
-            padding: 2rem 2rem;
+            padding: 5rem 4rem;
             border-radius: 5px;
+            background: white;
+            box-shadow: 0px 0px 20px 20px rgba(156, 156, 156, 0.14901960784313725);
         }
     }
 }
 .home-slide__search-box{
     .home-slide__seach-heading{
-        color: #1baf34;
+        color: #252525;
         font-weight: bold;
         font-size: 25px;
         margin-bottom: 1.5rem;
@@ -76,7 +77,7 @@
             height: 60px;
             padding: 0 1rem;
             border-radius: 4px;
-            background: #e1e4f3;
+            background: #eaeaea;
         }
     }
     .home-slide__search-period{
@@ -86,7 +87,7 @@
             height: 60px;
             padding: 0 1rem;
             border-radius: 4px;
-            background: #e1e4f3;
+            background: #eaeaea;
         }
     }
     .home-slide__search-button{
@@ -166,7 +167,7 @@
                     font-weight: bold;
                     text-align: center;
                 }
-                .states-box__toursSum{
+                .states-box__experienceSum{
                     font-size: 14px;
                     color: #fff;
                     text-align: center;
@@ -175,22 +176,22 @@
         }
     }
 }
-.tours{
-    .tours-heading{
-        .tours-heading_title{
+.experience{
+    .experience-heading{
+        .experience-heading_title{
             font-size: 22px;
             color: #252525;
         }
     }
-    .tours-all{
-        .tours-all__button{
+    .experience-all{
+        .experience-all__button{
             padding: 1rem 2rem;
             display: inline-block;
             border-radius: 5px;
-            background: #8f9d89;
+            background: #56b559;
             color: #fff;
             font-weight: 500;
-            .tours-all_button-icon{
+            .experience-all_button-icon{
                 font-weight: bold;
                 font-size: 13px;
                 padding-left: 0.5rem;
@@ -198,36 +199,36 @@
         }
     }
 }
-.tours-wrapper{
+.experience-wrapper{
     width: 100%;
     display: flex ;
     height: 100% ;
     flex-flow: row wrap;
-    .tours-box{
+    .experience-box{
         padding: 0rem 0.4rem;
         max-width: 25%;
         flex: 0 0 25%;
         display: inline-block;
         margin-bottom: 1.5rem;
-        .tours-box__inner{
+        .experience-box__inner{
             position: relative;
             height: 100%;
-            .tours-box__link{
+            .experience-box__link{
                 display: inline-block;
                 height: 100%;
             }
-            .tours-box__img-wrapper{
+            .experience-box__img-wrapper{
                 width: 100%;
                 height: 75% ;
                 display: flex;
                 position: relative;
                 overflow: hidden;
                 border-radius: 5px;
-                .tours-box__img-flex{
+                .experience-box__img-flex{
                    max-width: 100%;
                    -webkit-box-flex: 0;
                    flex: 0 0 100%;
-                   .tours-box__img{
+                   .experience-box__img{
                         object-fit: cover;
                         object-position: center;
                         width: 100%;
@@ -235,24 +236,25 @@
                     }
                 }
             }
-            .tours-box__content{
+            .experience-box__content{
                 position: relative;
                 padding-top: 0.7rem;
-                .tours-box__state{
+                .experience-box__state{
                     color: #1baf34;
                     font-size: 14px;    
-                    padding: 0.1rem 0 0.4rem 0;
+                    padding:0.2rem 0 0.2rem 0;
                 }
                 
-                .tours-box__name{
+                .experience-box__name{
                     font-size: 16px;
                     color: #333;
                     font-weight: 500;
                     text-align: left;
-                    width: calc(100% - 50px);
+                    width: calc(100% - 60px);
                     display: inline-block;
+                    line-height: 1.3;
                 }
-                .tours-box__rating{
+                .experience-box__rating{
                     float: right;
                     width: 50px;
                     color: orange;
@@ -260,7 +262,7 @@
                     font-size: 15px;
                     text-align: center;
                 }
-                .tours-box__price{
+                .experience-box__price{
                     color: #2b2b2b;
                     font-weight: 500;
                     font-size: 15px;

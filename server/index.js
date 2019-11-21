@@ -1,14 +1,13 @@
 const express = require('express')
 const { Nuxt, Builder } = require('nuxt')
-
+const bodyParser = require('body-parser')
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
-const apiRouter = require('./routes/toursRoutes')
+const apiRouter = require('./routes/experienceRoutes')
 const apiRouter1 = require('./routes/statesRoutes')
 const app = express()
-
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
@@ -23,6 +22,13 @@ async function start() {
     await nuxt.ready()
   }
   app.use(express.json())
+  app.use(bodyParser.json()) // to support JSON-encoded bodies
+  app.use(
+    bodyParser.urlencoded({
+      // to support URL-encoded bodies
+      extended: true
+    })
+  )
   app.use(apiRouter, apiRouter1)
   // Give nuxt middleware to express
   app.use(nuxt.render)

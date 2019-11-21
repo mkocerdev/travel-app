@@ -5,7 +5,7 @@
       <div class="home-slide__search-box w-full">
         <div class="home-slide__search-head w-full">
           <h1 class="home-slide__seach-heading">
-            Binlerce tur içerisinde arama yapın
+            Binlerce deneyim içerisinde arama yapın
           </h1>
         </div>
         <div class="home-slide__search-wrapper mb-3 w-full float-left">
