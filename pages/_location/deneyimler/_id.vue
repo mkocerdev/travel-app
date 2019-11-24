@@ -1,6 +1,5 @@
 <template>
   <div class="main-inner">
-    <home-search />
     <section class="experience px-64 mb-8 mt-16">
       <div class="experience-heading w-full mb-4">
         <h2 class="experience-heading_title font-bold">
@@ -24,12 +23,9 @@
 </template>
 
 <script>
-import HomeSearch from '~/components/home/searchContainer.vue'
 import experiencesList from '~/components/experiences/experiencesList.vue'
-
 export default {
   components: {
-    HomeSearch,
     experiencesList
   },
   computed: {
@@ -40,7 +36,7 @@ export default {
   async fetch({ route, params, error, store }) {
     try {
       await store.dispatch('Experience/fetchStateExperience', {
-        id: params.slugid.split('-')[2]
+        id: params.id
       })
     } catch (e) {
       error({

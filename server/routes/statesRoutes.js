@@ -18,4 +18,34 @@ router.get('/api/states/all', async (req, res, next) => {
   }
 })
 
+router.post('/api/state/experience', async (req, res, next) => {
+  try {
+    const data = await statesModel.stateId(req.body.id)
+    const result = data.map(function(el) {
+      const o = Object.assign({}, el)
+      o.seoLink = helper.getSeoLink(el.title)
+      return o
+    })
+    res.json(result)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
+
+router.post('/api/state', async (req, res, next) => {
+  try {
+    const data = await statesModel.getStateName(req.body.id)
+    const result = data.map(function(el) {
+      const o = Object.assign({}, el)
+      o.seoLink = helper.getSeoLink(el.name)
+      return o
+    })
+    res.json(result[0])
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
+
 module.exports = router

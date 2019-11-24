@@ -7,7 +7,7 @@
         class="experience-box"
       >
         <div class="experience-box__inner">
-          <a class="experience-box__link" href="#">
+          <nuxt-link :to="`/deneyim/${item.seoLink}/${item.id}`">
             <div class="experience-box__img-wrapper">
               <div class="experience-box__img-flex">
                 <img :src="item.photo" class="experience-box__img" />
@@ -24,7 +24,7 @@
               <p class="experience-box__state float">İzmir</p>
               <p class="experience-box__price">{{ item.price }} TL</p>
             </div>
-          </a>
+          </nuxt-link>
         </div>
       </div>
     </div>

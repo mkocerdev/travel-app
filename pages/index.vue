@@ -1,6 +1,5 @@
 <template>
   <div class="main-inner">
-    <home-search />
     <state-list class="px-64 my-8" />
     <section class="experience px-64 mb-8 mt-16">
       <div class="experience-heading w-full mb-4">
@@ -25,13 +24,12 @@
 </template>
 
 <script>
-import HomeSearch from '~/components/home/searchContainer.vue'
 import StateList from '~/components/states/statesList.vue'
 import experiencesList from '~/components/experiences/experiencesList.vue'
 
 export default {
+  layout: 'home',
   components: {
-    HomeSearch,
     StateList,
     experiencesList
   },

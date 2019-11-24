@@ -9,7 +9,7 @@
       <div v-for="(state, index) in states" :key="index" class="states-box">
         <div class="states-box__inner">
           <nuxt-link
-            :to="`/states/${state.seoLink}-deneyimler-${state.id}`"
+            :to="`/${state.seoLink}/deneyimler/${state.id}`"
             class="states-box__link"
           >
             <div class="states-box__img-wrapper">

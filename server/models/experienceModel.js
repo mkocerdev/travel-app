@@ -11,9 +11,10 @@ experience.all = () => {
     })
   })
 }
-experience.stateId = (id) => {
+
+experience.getState = (id) => {
   return new Promise((resolve, reject) => {
-    sql.query('SELECT * FROM experience WHERE stateId = ?', id, (err, res) => {
+    sql.query('SELECT * FROM experience WHERE id = ?', id, (err, res) => {
       if (err) {
         return reject(err)
       }

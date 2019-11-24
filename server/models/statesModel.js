@@ -16,4 +16,26 @@ states.all = () => {
   })
 }
 
+states.getStateName = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query('SELECT name FROM states WHERE id = ? ', id, (err, res) => {
+      if (err) {
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+
+states.stateId = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query('SELECT * FROM experience WHERE stateId = ?', id, (err, res) => {
+      if (err) {
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+
 module.exports = states

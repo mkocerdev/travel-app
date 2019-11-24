@@ -1,5 +1,5 @@
 <template>
-  <div class="header__logo">
+  <div class="header-logo__img">
     <img v-if="type" src="@/assets/images/logo.png" />
     <img v-if="!type" src="@/assets/images/logo-white.png" />
   </div>
