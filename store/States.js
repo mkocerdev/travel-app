@@ -9,12 +9,20 @@ export const actions = {
       commit('setStates', response)
       commit('setLoading', false)
     })
+  },
+  async fetchStateDetail({ commit }, stateId) {
+    await this.$axios.$post('/api/state', stateId).then((response) => {
+      commit('setStateDetail', response)
+    })
   }
 }
 
 export const mutations = {
-  setStates(state, list) {
-    state.states = list
+  setStates(state, states) {
+    state.states = states
+  },
+  setStateDetail(state, stateDetail) {
+    state.stateDetail = stateDetail
   },
   setLoading(state, loading) {
     state.loadingStates = loading

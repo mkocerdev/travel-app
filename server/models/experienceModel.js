@@ -12,7 +12,7 @@ experience.all = () => {
   })
 }
 
-experience.getState = (id) => {
+experience.getExperience = (id) => {
   return new Promise((resolve, reject) => {
     sql.query('SELECT * FROM experience WHERE id = ?', id, (err, res) => {
       if (err) {
@@ -20,6 +20,64 @@ experience.getState = (id) => {
       }
       return resolve(res)
     })
+  })
+}
+
+experience.getExperienceState = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT states.name, states.descr FROM experience INNER JOIN states ON experience.stateId = states.id WHERE experience.id = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
+experience.getExperienceGallery = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT photo FROM experience_gallery WHERE type =1 and experienceId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+experience.getExperienceNeeds = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT title FROM experience_guest_needs WHERE experienceId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+experience.getExperienceProgram = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT * FROM experience_program WHERE experienceId = ? ORDER BY day',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
   })
 }
 

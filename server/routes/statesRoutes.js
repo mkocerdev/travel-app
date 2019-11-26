@@ -20,7 +20,7 @@ router.get('/api/states/all', async (req, res, next) => {
 
 router.post('/api/state/experience', async (req, res, next) => {
   try {
-    const data = await statesModel.stateId(req.body.id)
+    const data = await statesModel.getStateExperience(req.body.id)
     const result = data.map(function(el) {
       const o = Object.assign({}, el)
       o.seoLink = helper.getSeoLink(el.title)
@@ -32,7 +32,6 @@ router.post('/api/state/experience', async (req, res, next) => {
     res.sendStatus(500)
   }
 })
-
 router.post('/api/state', async (req, res, next) => {
   try {
     const data = await statesModel.getStateName(req.body.id)

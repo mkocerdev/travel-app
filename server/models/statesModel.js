@@ -27,7 +27,7 @@ states.getStateName = (id) => {
   })
 }
 
-states.stateId = (id) => {
+states.getStateExperience = (id) => {
   return new Promise((resolve, reject) => {
     sql.query('SELECT * FROM experience WHERE stateId = ?', id, (err, res) => {
       if (err) {

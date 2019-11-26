@@ -8,14 +8,13 @@
               >Anasayfa</el-breadcrumb-item
             >
             <el-breadcrumb-item
-              :to="`/${experience.seoLink}/deneyimler/${experience.stateId}`"
+              :to="`/${stateInfo.seoLink}/deneyimler/${experience.stateId}`"
               >İzmir</el-breadcrumb-item
             >
             <el-breadcrumb-item>Kamp ve Macera</el-breadcrumb-item>
             <el-breadcrumb-item>{{ experience.title }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-
         <div class="experience-header w-full float-left pb-4">
           <div class="experience-info w-10/12 float-left">
             <h1 class="text-2xl font-medium">{{ experience.title }}</h1>
@@ -39,6 +38,9 @@ export default {
   computed: {
     experience() {
       return this.$store.state.experienceDetail.experience
+    },
+    stateInfo() {
+      return this.$store.state.experienceDetail.stateInfo
     }
   },
   async fetch({ route, params, error, store }) {
