@@ -1,3 +1,3 @@
-# travel-ui
+# travel-ui (nuxt + express)
 
-> My wonderful travel project (nuxt + express)
+> My wonderful travel project 
