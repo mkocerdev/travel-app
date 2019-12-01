@@ -83,5 +83,19 @@ experience.getExperienceProgram = (id) => {
     )
   })
 }
+experience.getExperienceRating = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT * FROM experience_rating WHERE experienceId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
 
 module.exports = experience

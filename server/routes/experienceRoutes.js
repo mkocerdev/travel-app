@@ -75,5 +75,14 @@ router.post('/api/experience/program', async (req, res, next) => {
     res.sendStatus(500)
   }
 })
+router.post('/api/experience/rating', async (req, res, next) => {
+  try {
+    const data = await experienceModel.getExperienceRating(req.body.id)
+    res.json(data)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
 
 module.exports = router

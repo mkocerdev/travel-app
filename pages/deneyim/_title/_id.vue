@@ -112,7 +112,7 @@
                 <i class="label-box__icon el-icon-user"></i>
               </div>
               <div class="w-9/12 float-left">
-                <p class="label-box__text">Kapasite</p>
+                <p class="label-box__text">Misafir Sayısı</p>
                 <p class="label-box__data">{{ experience.capacity }} kişi</p>
               </div>
             </div>
@@ -126,6 +126,22 @@
           </h2>
           <div class="experience-plan__descr">
             {{ experience.descr }}
+          </div>
+        </div>
+        <div class="experience-needs">
+          <h2>
+            <span class="experience-needs__title experience-detail__subtitle"
+              >Seyahat için gerekenler</span
+            >
+          </h2>
+          <div class="needs-content">
+            <div
+              v-for="(item, index) in needs"
+              :key="index"
+              class="needs-content__item"
+            >
+              {{ item.title }}
+            </div>
           </div>
         </div>
         <div class="experience-program">
@@ -168,22 +184,6 @@
             {{ experience.includedPrice }}
           </div>
         </div>
-        <div class="experience-needs">
-          <h2>
-            <span class="experience-needs__title experience-detail__subtitle"
-              >Seyahat için gerekenler</span
-            >
-          </h2>
-          <div class="needs-content">
-            <div
-              v-for="(item, index) in needs"
-              :key="index"
-              class="needs-content__item"
-            >
-              {{ item.title }}
-            </div>
-          </div>
-        </div>
         <div class="experience-excludedprice">
           <h2>
             <span
@@ -206,10 +206,82 @@
             <div
               v-for="(item, index) in guestPhotos"
               :key="index"
-              class="photos-content__item w-6/12 float-left"
+              class="photos-content__item w-4/12 float-left"
             >
               <img :src="item.photo" class="photos-content__photo" />
             </div>
+          </div>
+        </div>
+        <div class="experience-rating">
+          <h2>
+            <span class="experience-rating__title experience-detail__subtitle"
+              >Misafir Değerlendirmeleri</span
+            >
+          </h2>
+          <div class="rating-content">
+            <div
+              v-for="(item, index) in rating"
+              :key="index"
+              class="rating-box w-full"
+            >
+              <div class="rating-box__header w-4/12">
+                <div class="rating-box__avatar">
+                  <el-avatar :size="50"> MK </el-avatar>
+                </div>
+                <div class="rating-box__user-info">
+                  <p class="rating-box__user-name">Mehmet Koçer</p>
+                  <p class="rating-box__date">{{ item.createDate }}</p>
+                  <p class="rating-box__rate">
+                    <el-rate
+                      :value="item.star"
+                      :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
+                      class="experience-info__rate"
+                      disabled
+                      disabled-void-color="#b9b9b9"
+                    >
+                    </el-rate>
+                  </p>
+                </div>
+              </div>
+              <div class="rating-box__content w-8/12">
+                <p class="rating-box__title">{{ item.title }}</p>
+
+                <p class="rating-box__descr">{{ item.descr }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="experience-guest-photos">
+          <h2>
+            <span
+              class="experience-guest-photos__title experience-detail__subtitle"
+              >Konum</span
+            >
+          </h2>
+          <div class="photos-content">
+            konumda ha buraya gelecek
+          </div>
+        </div>
+        <div class="experience-guest-photos">
+          <h2>
+            <span
+              class="experience-guest-photos__title experience-detail__subtitle"
+              >Dikkat edilmesi gerekenler</span
+            >
+          </h2>
+          <div class="photos-content">
+            {{ experience.note }}
+          </div>
+        </div>
+        <div class="experience-guest-photos">
+          <h2>
+            <span
+              class="experience-guest-photos__title experience-detail__subtitle"
+              >Benzer Seyahatler</span
+            >
+          </h2>
+          <div class="photos-content">
+            Ha burayada benzer seyatler gelecek
           </div>
         </div>
       </div>
@@ -267,6 +339,9 @@ export default {
     },
     guestPhotos() {
       return this.$store.state.experienceDetail.guestPhotos
+    },
+    rating() {
+      return this.$store.state.experienceDetail.rating
     }
   },
   async fetch({ route, params, error, store }) {

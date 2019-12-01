@@ -37,7 +37,7 @@
             .header-menu__ul{
                 .header-menu__li{
                     .header-menu__item{ 
-                        font-weight: bold;
+                        font-weight: 500;
                         color: #333;
                         &--white{
                             color: white;
@@ -418,6 +418,7 @@
                     padding: 0px 2rem;
                     border-radius: 4px;
                     background: #1baf34;
+                    box-shadow: 0px 0px 20px 0px rgba(27, 175, 52, 0.5);
                     color: #fff;
                     font-size: 15px;
                     font-weight: 500;
@@ -434,7 +435,7 @@
             float: left;
             padding: 0 1rem;
             width: 100%;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             .label-box{
                 padding:0 1rem;
                 float: left;
@@ -468,7 +469,7 @@
             width: 100%;
             padding: 0 1rem;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             &__descr{
                 color: #4c4c4c;
                 padding: 0 1rem;
@@ -480,7 +481,7 @@
             width: 100%;
             padding: 0 1rem;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             .program-content{
                 padding: 15px 1rem 0 1rem;
                 .el-timeline-item{
@@ -526,7 +527,7 @@
             width: 100%;
             padding: 0 1rem;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             .includedprice-content{
                 color: #4c4c4c;
                 padding: 0 1rem;
@@ -537,7 +538,7 @@
             width: 100%;
             padding: 0 1rem;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             .needs-content{
                 color: #4c4c4c;
                 padding: 0 1rem;
@@ -555,7 +556,7 @@
             width: 100%;
             padding: 0 1rem;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             .excludedprice-content{
                 color: #4c4c4c;
                 padding: 0 1rem;
@@ -566,7 +567,7 @@
             width: 100%;
             padding: 0 1rem;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             .photos-content{
                 color: #4c4c4c;
                 padding: 0 1rem;
@@ -582,6 +583,65 @@
                     height: 100%;
                     object-fit: cover;
                     object-position: center;
+                }
+            }
+        }
+        .experience-rating{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 4rem;
+            .rating-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                display: flex;
+                flex-flow: row wrap;
+                .rating-box{
+                    padding: 2rem 2rem;
+                    border: 1px solid #ebeef5;
+                    border-radius: 9px;
+                    float: left;
+                    margin-bottom: 1rem;
+                    &__header{
+                        float: left;
+                        display: flex;
+                        height: 100%;
+                        align-items: center;
+                        flex-flow: row wrap;
+                    }
+                    &__avatar{
+                        float: left;
+                    }
+                    &__user-info{
+                        float: left;
+                        padding-left: 2rem;
+                    }
+                    &__avatar{
+                        .el-avatar{
+                            background-color: #1baf34;
+                        }
+                    }
+                    &__user-name{
+                        font-size: 17px;
+                        font-weight: 600;
+                    }
+                    &__date{
+                        color: #b9b9b9;
+                        font-size: 14px;
+                    }
+                    &__content{
+                        float: left;
+                    }
+                    &__title{
+                        font-size: 17px;
+                        font-weight: 600;
+                        margin-bottom: 0.7rem;
+                    }
+                    &__descr{
+                        color: #4c4c4c;
+                        font-size: 15px;
+                    }
                 }
             }
         }
