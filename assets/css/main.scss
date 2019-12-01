@@ -48,7 +48,7 @@
         }
         .header-search{
             position: relative;
-            height: 55px;
+            height: 50px;
             display: -webkit-box;
             display: flex;
             -webkit-box-align: stretch;
@@ -62,7 +62,7 @@
             &__icon{
                 position: absolute;
                 left: 16px;
-                line-height: 55px;
+                line-height: 50px;
                 color: #8c8c8c;
                 font-size: 21px;
             }
@@ -314,22 +314,106 @@
 }
 /*Experience Detail*/
 .experience-detail{
+    &__subtitle{
+        color: #232323;
+        font-weight: 600;
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
     .experience-inner{
         width: 100%;
         max-width: 1350px;
         margin: 0px auto ;
+        display: inline-block;
+        clear: both;
     }
     .experience-spot{
-        padding-top: 2rem;
-        height: calc(100vh - 85px);
+        padding: 2rem 0rem 0 0;  
         background: #eaeef3;
+        text-align: center; 
+        .experience-gallery{
+            width: 100%;
+            height: 45vh;
+            min-height: 500px;
+            max-height: 650px;
+            display: -webkit-box;
+            display: flex;
+        
+            &__item{
+                padding: 5px;
+                width: 100%;
+                height: 100%;
+                flex: 2 1 0%;
+                &:first-child{
+                    height: 100%;
+                    flex: 3 1 0%;
+                }
+            }
+            &__img{    
+                overflow: hidden;
+                border-radius: 10px;
+                box-shadow: 0px 1px 20px 0px #c6d0c9;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
         .experience-header{
             display: flex;
             align-items: flex-end;
             flex-flow: row wrap;
+            padding: 0 1rem;
+            .experience-info{
+                text-align: left;
+                margin-bottom: 2rem;
+                &__title{
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                }
+                &__descr{
+                    margin-bottom: 0.5rem;
+                }
+                &__rate{
+                    margin-bottom: 0.3rem;
+                    i{
+                        margin-right: 4px;
+                    }
+                }
+                &__location{
+                    border-radius: 4px;
+                    padding: 0.5rem 1rem;
+                    margin-top: 5px;
+                    color: black;
+                    font-size: 14px;
+                    font-weight: 600;
+                    display: inline-flex;
+                    align-items: center;
+                    border:1px solid #bbc3ce;
+                    .experience-location__icon{
+                        font-size: 20px;
+                        padding-right: 5px;
+                    }
+                }
+            }
             .experience-reservation{
+                z-index: 2;
+                position: relative; 
+                background: #fff;
+                padding: 2rem;
+                border-top-right-radius: 9px;
+                border-top-left-radius: 9px;   
+                &__price{
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 1.5rem;
+                    strong{
+                        font-size: 25px;
+                    }
+                }   
                 &__button{
-                    float: right;
+                    width: 100%; 
                     height: 50px;
                     padding: 0px 2rem;
                     border-radius: 4px;
@@ -341,19 +425,164 @@
                 }
             }
         }
-        .experience-gallery{
+    }
+    .experience-content{
+        padding: 2rem 0rem;
+        text-align: center;
+        .experience-labels{
+            text-align: left;
+            float: left;
+            padding: 0 1rem;
             width: 100%;
-            height: 55vh;
-            min-height: 515px;
-            max-height: 800px;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 1px 20px 0px #c6d0c9;
-            &__img{
-                object-fit: cover;
-                object-position: center;
-                width: 100%;
-                height: 100%;
+            margin-bottom: 3rem;
+            .label-box{
+                padding:0 1rem;
+                float: left;
+                &__inner{
+                    border-radius: 9px;
+                    padding: 2rem;
+                    border: 1px solid #EBEEF5;
+                    background-color: #FFF;
+                    color: #303133;
+                    -webkit-transition: .3s;
+                    transition: .3s;   
+                    display: inline-block;
+                    &:hover{
+                        box-shadow: 0px 1px 20px 0px rgba(47, 47, 47, 0.19);
+                    }
+                }
+                &__icon{
+                    color: #666f7b;
+                    font-size: 30px;
+                }
+                &__text{
+                    margin-bottom: 0.2rem;
+                }
+                &__data{
+                    font-weight: 500;
+                }
+            }
+        }
+        .experience-plan{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 3rem;
+            &__descr{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                line-height: 2;
+            }
+        }
+        .experience-program{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 3rem;
+            .program-content{
+                padding: 15px 1rem 0 1rem;
+                .el-timeline-item{
+                    padding-bottom: 2rem;
+                    &:last-child{
+                        padding-bottom: 0rem;
+                    }
+                }
+                .el-timeline-item__timestamp {
+                    color: #353638;
+                    line-height: 1;
+                    font-size: 16px;
+                    font-weight: 500;
+                    padding-top: 0;
+                    margin-bottom: 1rem;
+                }
+                .program-box{
+                    width: 100%;
+                    display: inline-block;
+                    &__photo{
+                        float: left;
+                        border-radius: 9px;
+                        overflow: hidden;
+                    }
+                    &__content{
+                        float: left;
+                        padding: 2rem;
+                    }
+                    &__title{
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-bottom: 0.5rem;
+                    }
+                    &__descr{
+                        font-size: 15px;
+                        color: #4c4c4c;
+                    }
+                }
+            }
+        }
+        .experience-includedprice{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 3rem;
+            .includedprice-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+            }
+        }
+        .experience-needs{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 3rem;
+            .needs-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                &__item{
+                    padding: 1rem 2rem;
+                    border: 1px solid #ebeef5;
+                    border-radius: 9px;
+                    float: left;
+                    margin-right: 1rem;
+                }
+            }
+        }
+        .experience-excludedprice{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 3rem;
+            .excludedprice-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+            }
+        }
+        .experience-guest-photos{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 3rem;
+            .photos-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                display: flex;
+                flex-flow: row wrap;
+                &__item{
+                    border: 5px solid white;
+                    border-radius: 9px;
+                    overflow: hidden;
+                }
+                &__photo{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
             }
         }
     }

@@ -50,7 +50,7 @@ router.post('/api/experience/state', async (req, res, next) => {
 
 router.post('/api/experience/gallery', async (req, res, next) => {
   try {
-    const data = await experienceModel.getExperienceGallery(req.body.id)
+    const data = await experienceModel.getExperienceGallery(req.body)
     res.json(data)
   } catch (e) {
     console.log(e)

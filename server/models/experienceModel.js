@@ -38,11 +38,14 @@ experience.getExperienceState = (id) => {
   })
 }
 
-experience.getExperienceGallery = (id) => {
+experience.getExperienceGallery = (data) => {
   return new Promise((resolve, reject) => {
     sql.query(
-      'SELECT photo FROM experience_gallery WHERE type =1 and experienceId = ?',
-      id,
+      'SELECT photo FROM experience_gallery WHERE type = ' +
+        data.type +
+        ' and experienceId = ' +
+        data.id +
+        '',
       (err, res) => {
         if (err) {
           return reject(err)

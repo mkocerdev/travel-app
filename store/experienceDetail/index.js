@@ -3,6 +3,7 @@ export const state = () => ({
   experience: null,
   stateInfo: null,
   gallery: [],
+  guestPhotos: [],
   needs: [],
   program: [],
   resevation: []
@@ -15,6 +16,7 @@ export const actions = {
       dispatch('fetchExperience', state.id),
       dispatch('fetchExperienceState', state.id),
       dispatch('fetchExperienceGallery', state.id),
+      dispatch('fetchExperienceGuestPhotos', state.id),
       dispatch('fetchExperienceNeeds', state.id),
       dispatch('fetchExperienceProgram', state.id)
     ])
@@ -29,10 +31,19 @@ export const actions = {
       commit('setState', response)
     })
   },
-  async fetchExperienceGallery({ commit }, id) {
-    await this.$axios.$post('/api/experience/gallery', id).then((response) => {
-      commit('setGallery', response)
-    })
+  async fetchExperienceGallery({ commit }, experience) {
+    await this.$axios
+      .$post('/api/experience/gallery', { id: experience.id, type: 1 })
+      .then((response) => {
+        commit('setGallery', response)
+      })
+  },
+  async fetchExperienceGuestPhotos({ commit }, experience) {
+    await this.$axios
+      .$post('/api/experience/gallery', { id: experience.id, type: 2 })
+      .then((response) => {
+        commit('setGuestPhotos', response)
+      })
   },
   async fetchExperienceNeeds({ commit }, id) {
     await this.$axios.$post('/api/experience/needs', id).then((response) => {
@@ -58,6 +69,9 @@ export const mutations = {
   },
   setGallery(state, gallery) {
     state.gallery = gallery
+  },
+  setGuestPhotos(state, guestPhotos) {
+    state.guestPhotos = guestPhotos
   },
   setNeeds(state, needs) {
     state.needs = needs
