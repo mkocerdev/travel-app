@@ -1,13 +1,15 @@
 export const state = () => ({
   id: null,
   experience: null,
+  rateInfo: null,
   stateInfo: null,
   gallery: [],
   guestPhotos: [],
   needs: [],
   program: [],
   rating: [],
-  resevation: []
+  resevation: [],
+  category: null
 })
 
 export const actions = {
@@ -20,7 +22,9 @@ export const actions = {
       dispatch('fetchExperienceGuestPhotos', state.id),
       dispatch('fetchExperienceNeeds', state.id),
       dispatch('fetchExperienceProgram', state.id),
-      dispatch('fetchExperienceRating', state.id)
+      dispatch('fetchExperienceRating', state.id),
+      dispatch('fetchExperienceRateInfo', state.id),
+      dispatch('fetchExperienceCategory', state.id)
     ])
   },
   async fetchExperience({ commit, dispatch }, id) {
@@ -61,6 +65,16 @@ export const actions = {
     await this.$axios.$post('/api/experience/rating', id).then((response) => {
       commit('setRating', response)
     })
+  },
+  async fetchExperienceRateInfo({ commit }, id) {
+    await this.$axios.$post('/api/experience/RateInfo', id).then((response) => {
+      commit('setRateInfo', response)
+    })
+  },
+  async fetchExperienceCategory({ commit }, id) {
+    await this.$axios.$post('/api/experience/category', id).then((response) => {
+      commit('setCategory', response)
+    })
   }
 }
 
@@ -88,5 +102,11 @@ export const mutations = {
   },
   setRating(state, rating) {
     state.rating = rating
+  },
+  setRateInfo(state, rateInfo) {
+    state.rateInfo = rateInfo
+  },
+  setCategory(state, category) {
+    state.category = category
   }
 }

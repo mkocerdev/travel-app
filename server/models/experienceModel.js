@@ -86,7 +86,35 @@ experience.getExperienceProgram = (id) => {
 experience.getExperienceRating = (id) => {
   return new Promise((resolve, reject) => {
     sql.query(
-      'SELECT * FROM experience_rating WHERE experienceId = ?',
+      'SELECT *, DATE_FORMAT(createDate, "%d %M %Y") as formatDate FROM experience_rating WHERE experienceId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+experience.getExperienceRateInfo = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT COUNT(id) as totalRate, CONVERT(AVG(DISTINCT star),DECIMAL(10,1))  as avgRate FROM `experience_rating` WHERE experienceId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+experience.getExperiencePrimaryCategory = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT categories.categoryName FROM experience INNER JOIN categories ON experience.primaryCategory = categories.id where experience.id = ?',
       id,
       (err, res) => {
         if (err) {

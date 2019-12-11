@@ -16,7 +16,15 @@
 .h2, .h3, .h5, .h6, .heading, h1, h2, h3, h4, h5, h6{
   font-family: 'Poppins', sans-serif!important;
 }
-   
+.el-select-dropdown__item{
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #eaeef3;
+}
+.el-select-dropdown__item.selected {
+    color: #1baf34;
+    font-weight: 600;
+}
 .header, .main, .footer{
     float: left;
     width: 100%;
@@ -376,12 +384,25 @@
                     margin-bottom: 0.5rem;
                 }
                 &__rate{
+                    width: 100%;
+                    float: left;
                     margin-bottom: 0.3rem;
+                    display: flex;
+                    align-items: center;
+                    flex-flow: row wrap;
+                }
+                &__rate-number{
+                    float: left;
                     i{
                         margin-right: 4px;
                     }
                 }
+                &__rate-count{
+                    font-size: 14px;
+                    color: #636363;
+                }
                 &__location{
+                    float: left;
                     border-radius: 4px;
                     padding: 0.5rem 1rem;
                     margin-top: 5px;
@@ -397,69 +418,105 @@
                     }
                 }
             }
-            .experience-reservation{
-                z-index: 2;
-                position: relative; 
-                background: #fff;
-                padding: 2rem;
-                border-top-right-radius: 9px;
-                border-top-left-radius: 9px;   
-                &__price{
-                    font-size: 16px;
-                    text-align: center;
-                    margin-bottom: 1.5rem;
-                    strong{
-                        font-size: 25px;
-                    }
-                }   
-                &__button{
-                    width: 100%; 
-                    height: 50px;
-                    padding: 0px 2rem;
-                    border-radius: 4px;
-                    background: #1baf34;
-                    box-shadow: 0px 0px 20px 0px rgba(27, 175, 52, 0.5);
-                    color: #fff;
-                    font-size: 15px;
-                    font-weight: 500;
-                    letter-spacing: 0.5px;
-                }
-            }
         }
     }
     .experience-content{
         padding: 2rem 0rem;
         text-align: center;
+        .experience-reservation{
+            z-index: 2;
+            position: relative;
+            background: #fff;
+            border: 1px solid #eaeef3;
+            padding: 2rem;
+            border-top-right-radius: 9px;
+            border-top-left-radius: 9px;
+            margin-top: -7rem;
+            &__date{
+                margin-bottom: 1.5rem;
+                text-align: left;
+                label{
+                    font-weight: 600;
+                    font-size: 14px;
+                    padding-bottom: 5px;
+                    display: block;
+                }
+                .el-select{
+                    width: 100%;
+                }
+            }
+            &__price{
+                font-size: 16px;
+                text-align: left;
+                margin-bottom: 0.5rem;
+                span{
+                    font-weight: 400;
+                    font-size: 14px;
+                    padding-left: 5px;
+                }
+                strong{
+                    font-size: 25px;
+                }
+            }   
+            &__person-number{
+                text-align: left;
+                margin-bottom: 1.5rem;
+                label{
+                    font-weight: 600;
+                    font-size: 14px;
+                    padding-bottom: 5px;
+                    display: block; 
+                }
+                .el-dropdown, .el-button{
+                    width: 100%;
+                    text-align: left;
+                }
+                .el-icon--right{
+                    float: right;
+                }
+            }
+            &__button{
+                width: 100%; 
+                height: 50px;
+                padding: 0px 2rem;
+                border-radius: 4px;
+                background: #1baf34;
+                box-shadow: 0px 0px 20px 0px rgba(27, 175, 52, 0.5);
+                color: #fff;
+                font-size: 15px;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+            }
+        }
         .experience-labels{
             text-align: left;
             float: left;
             padding: 0 1rem;
             width: 100%;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             .label-box{
-                padding:0 1rem;
+                padding:0 0.5rem;
                 float: left;
                 &__inner{
                     border-radius: 9px;
-                    padding: 2rem;
+                    padding: 1rem;
                     border: 1px solid #EBEEF5;
                     background-color: #FFF;
                     color: #303133;
                     -webkit-transition: .3s;
                     transition: .3s;   
                     display: inline-block;
-                    &:hover{
-                        box-shadow: 0px 1px 20px 0px rgba(47, 47, 47, 0.19);
-                    }
                 }
                 &__icon{
                     color: #666f7b;
                     font-size: 30px;
                 }
                 &__text{
+                    font-size: 14px;
                     margin-bottom: 0.2rem;
                 }
                 &__data{
+                    font-size: 15px;
                     font-weight: 500;
                 }
             }
@@ -543,11 +600,12 @@
                 color: #4c4c4c;
                 padding: 0 1rem;
                 &__item{
-                    padding: 1rem 2rem;
+                    padding: 0.7rem 1rem;
                     border: 1px solid #ebeef5;
                     border-radius: 9px;
                     float: left;
                     margin-right: 1rem;
+                    font-size: 15px;
                 }
             }
         }
@@ -592,13 +650,31 @@
             padding: 0 1rem;
             text-align: left;
             margin-bottom: 4rem;
+            &__title{
+                .experience-detail__subtitle{
+                    margin-bottom: 0px;
+                }
+            }
+            &__rateInfo{
+                margin-bottom: 1rem;    
+                display: flex;
+                align-items: center;
+                flex-flow: row wrap;
+                .experience-info__rate-number{
+                    float: left;
+                }
+                .experience-info__rate-count{
+                    font-size: 14px;
+                    color: #636363;
+                }
+            }
             .rating-content{
                 color: #4c4c4c;
                 padding: 0 1rem;
                 display: flex;
                 flex-flow: row wrap;
                 .rating-box{
-                    padding: 2rem 2rem;
+                    padding: 1.5rem 2rem;
                     border: 1px solid #ebeef5;
                     border-radius: 9px;
                     float: left;
@@ -606,7 +682,6 @@
                     &__header{
                         float: left;
                         display: flex;
-                        height: 100%;
                         align-items: center;
                         flex-flow: row wrap;
                     }
@@ -623,6 +698,7 @@
                         }
                     }
                     &__user-name{
+                        color: #303133;
                         font-size: 17px;
                         font-weight: 600;
                     }
@@ -632,8 +708,10 @@
                     }
                     &__content{
                         float: left;
+                        margin-top: 1.5rem;
                     }
                     &__title{
+                        color: #303133;
                         font-size: 17px;
                         font-weight: 600;
                         margin-bottom: 0.7rem;
@@ -643,6 +721,45 @@
                         font-size: 15px;
                     }
                 }
+            }
+        }
+        .experience-location{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 4rem;
+            .location-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                display: flex;
+                flex-flow: row wrap;
+            }
+        }
+        .experience-notes{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 4rem;
+            .notes-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                display: flex;
+                flex-flow: row wrap;
+            }
+        }
+        .experience-similar{
+            display: inline-block;
+            width: 100%;
+            padding: 0 1rem;
+            text-align: left;
+            margin-bottom: 4rem;
+            .similar-content{
+                color: #4c4c4c;
+                padding: 0 1rem;
+                display: flex;
+                flex-flow: row wrap;
             }
         }
     }

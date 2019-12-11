@@ -84,5 +84,25 @@ router.post('/api/experience/rating', async (req, res, next) => {
     res.sendStatus(500)
   }
 })
+router.post('/api/experience/RateInfo', async (req, res, next) => {
+  try {
+    const data = await experienceModel.getExperienceRateInfo(req.body.id)
+    const result = Object.assign({}, data)
+    res.json(result[0])
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
+router.post('/api/experience/category', async (req, res, next) => {
+  try {
+    const data = await experienceModel.getExperiencePrimaryCategory(req.body.id)
+    const result = Object.assign({}, data)
+    res.json(result[0])
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
 
 module.exports = router
