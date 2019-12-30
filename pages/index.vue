@@ -1,12 +1,12 @@
 <template>
   <div class="main-inner">
-    <state-list class="px-64 my-8" />
+    <state-list :states="states" class="px-64 my-8" />
     <section class="experience px-64 mb-8 mt-16">
       <div class="experience-heading w-full mb-4">
         <h2 class="experience-heading_title font-bold">
           Popüler Deneyimler
         </h2>
-        <p>
+        <p class="experience-heading__descr">
           Yerel uzmanlar rehberliğinde konaklamalı seyahatler-etkinlikler,
           yemekler ve konaklama dahil
         </p>
@@ -36,11 +36,15 @@ export default {
   computed: {
     experiences() {
       return this.$store.state.Experience.experience
+    },
+    states() {
+      return this.$store.state.States.popularStates
     }
   },
   async asyncData({ error, store }) {
     try {
       await store.dispatch('Experience/fetchAllExperience')
+      await store.dispatch('States/fetchPopularStates')
       await store.dispatch('States/fetchAllStates')
     } catch (e) {
       error({ status: 500, message: e.message })

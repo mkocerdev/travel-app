@@ -104,5 +104,14 @@ router.post('/api/experience/category', async (req, res, next) => {
     res.sendStatus(500)
   }
 })
+router.post('/api/experience/reservations', async (req, res, next) => {
+  try {
+    const data = await experienceModel.getExperienceReservations(req.body.id)
+    res.json(data)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
 
 module.exports = router

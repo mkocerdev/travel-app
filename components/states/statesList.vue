@@ -31,9 +31,10 @@
 
 <script>
 export default {
-  computed: {
-    states() {
-      return this.$store.state.States.states
+  props: {
+    states: {
+      type: Array,
+      required: true
     }
   }
 }

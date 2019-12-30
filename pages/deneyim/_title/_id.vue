@@ -45,7 +45,7 @@
       <div class="experience-inner">
         <div class="experience-reservation w-3/12 float-right">
           <div class="experience-reservation__date">
-            <reservationDate />
+            <reservationDate :reservations="reservations" />
           </div>
           <div class="experience-reservation__person-number">
             <reservationPerson />
@@ -211,6 +211,9 @@ export default {
     },
     primaryCategory() {
       return this.$store.state.experienceDetail.category
+    },
+    reservations() {
+      return this.$store.state.experienceDetail.reservations
     }
   },
   async fetch({ route, params, error, store }) {

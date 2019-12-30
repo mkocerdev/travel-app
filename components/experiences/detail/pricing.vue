@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <strong>{{ price }} TL</strong>
-    <span>Kişi başı</span>
+    <span>kişi başı</span>
   </div>
 </template>
 <script>

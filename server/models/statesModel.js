@@ -4,6 +4,19 @@ const states = {}
 states.all = () => {
   return new Promise((resolve, reject) => {
     sql.query(
+      'SELECT id,name, descr, photo FROM states WHERE countryId = 223 ',
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+states.popular = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(
       // 'SELECT s.name, s.descr, s.photo, SUM(t.id) as toursSum FROM states as s INNER JOIN tours as t ON t.stateId = s.id;',
       'SELECT id,name, descr, photo FROM states WHERE photo <> "" LIMIT 5',
       (err, res) => {

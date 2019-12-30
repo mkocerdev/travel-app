@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <home-search />
+    <home-search :states="states" :popularStates="popularStates" />
     <div class="header-bg">
       <img class="home-bg__img" src="@/assets/images/slide.jpg" />
     </div>
@@ -40,6 +40,14 @@ export default {
   name: 'HeaderComponent',
   components: {
     HomeSearch
+  },
+  computed: {
+    states() {
+      return this.$store.state.States.states
+    },
+    popularStates() {
+      return this.$store.state.States.popularStates
+    }
   }
 }
 </script>

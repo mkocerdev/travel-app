@@ -125,5 +125,19 @@ experience.getExperiencePrimaryCategory = (id) => {
     )
   })
 }
+experience.getExperienceReservations = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT DATE_FORMAT(startDate, "%d %M %Y") as startDate, DATE_FORMAT(endDate, "%d %M %Y") as endDate,capacity,status FROM reservation WHERE reservation.experienceId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
 
 module.exports = experience

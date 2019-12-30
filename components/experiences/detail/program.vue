@@ -8,10 +8,10 @@
         placement="top"
       >
         <div class="program-box">
-          <div class="program-box__photo w-3/12">
+          <div class="program-box__photo w-4/12">
             <img :src="item.photo" />
           </div>
-          <div class="program-box__content w-9/12">
+          <div class="program-box__content w-8/12">
             <h4 class="program-box__title">{{ item.title }}</h4>
             <p class="program-box__descr">
               {{ item.descr }}

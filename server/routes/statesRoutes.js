@@ -18,6 +18,21 @@ router.get('/api/states/all', async (req, res, next) => {
   }
 })
 
+router.get('/api/states/popular', async (req, res, next) => {
+  try {
+    const statesResults = await statesModel.popular()
+    const result = statesResults.map(function(el) {
+      const o = Object.assign({}, el)
+      o.seoLink = helper.getSeoLink(el.name)
+      return o
+    })
+    res.json(result)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
+
 router.post('/api/state/experience', async (req, res, next) => {
   try {
     const data = await statesModel.getStateExperience(req.body.id)
