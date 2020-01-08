@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 
 const connection = mysql.createConnection({
-  host: 'remotemysql.com',
-  user: 'TnjwFdgLmL',
-  password: 'NQvLJyfALG',
-  database: 'TnjwFdgLmL'
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'travel'
 })
 
 connection.connect(function(err) {

@@ -8,64 +8,69 @@
           </h1>
         </div>
         <div class="home-search__wrapper mb-3 w-full float-left">
-          <div class="home-search__tour w-5/12 float-left">
-            <el-select
-              v-model="value"
-              :remote-method="remoteMethod"
-              :loading="loading"
-              class="w-full"
-              filterable
-              style="height:60px"
-              remote
-              reserve-keyword
-              placeholder="Tur Adı, Şehir ve Tema Giriniz"
-            >
-              <el-option
-                v-for="item in defaultStates"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-              </el-option>
-            </el-select>
-          </div>
-          <div class="home-search__period w-5/12 float-left">
-            <div class="block">
+          <form @submit.prevent="(event) => submitForm(event)" method="post">
+            <div class="home-search__tour w-5/12 float-left">
               <el-select
-                v-model="value2"
+                v-model="value"
+                :remote-method="remoteMethod"
+                :loading="loading"
                 class="w-full"
-                multiple
-                collapse-tags
+                filterable
                 style="height:60px"
-                placeholder="Dönem Seçiniz"
+                remote
+                reserve-keyword
+                placeholder="Tur Adı, Şehir ve Tema Giriniz"
               >
-                <el-option label="Herhangi bir dönem" value="all"> </el-option>
                 <el-option
-                  :label="moment(date).format('MMMM YYYY')"
-                  :value="moment(date).format('l')"
-                >
-                </el-option>
-                <el-option
-                  v-for="i in 11"
-                  :key="i"
-                  :label="
-                    moment(date)
-                      .add(i, 'months')
-                      .format('MMMM YYYY')
-                  "
-                  :value="
-                    moment(date)
-                      .add(i, 'months')
-                      .format('l')
-                  "
+                  v-for="item in defaultStates"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
                 >
                 </el-option>
               </el-select>
+
+              <i class="home-search__tour-icon el-icon-search"></i>
             </div>
-          </div>
-          <div class="home-search__button-wrapper w-2/12 float-left">
-            <button class="home-search__button">Ara</button>
-          </div>
+            <div class="home-search__period w-5/12 float-left">
+              <div class="block">
+                <el-select
+                  v-model="value2"
+                  class="w-full"
+                  multiple
+                  collapse-tags
+                  style="height:60px"
+                  placeholder="Dönem Seçiniz"
+                >
+                  <el-option label="Herhangi bir dönem" value="all">
+                  </el-option>
+                  <el-option
+                    :label="moment(date).format('MMMM YYYY')"
+                    :value="moment(date).format('l')"
+                  >
+                  </el-option>
+                  <el-option
+                    v-for="i in 11"
+                    :key="i"
+                    :label="
+                      moment(date)
+                        .add(i, 'months')
+                        .format('MMMM YYYY')
+                    "
+                    :value="
+                      moment(date)
+                        .add(i, 'months')
+                        .format('l')
+                    "
+                  >
+                  </el-option>
+                </el-select>
+              </div>
+            </div>
+            <div class="home-search__button-wrapper w-2/12 float-left">
+              <button class="home-search__button">Ara</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -93,37 +98,15 @@ export default {
       list: [],
       loading: false,
       period: [],
-      /* period: [
-        {
-          value: 'all',
-          label: 'Tüm Dönemler'
-        },
-        {
-          value: 'Option2',
-          label: 'Aralık 2019'
-        },
-        {
-          value: 'Option3',
-          label: 'Ocak 2019'
-        },
-        {
-          value: 'Option4',
-          label: 'Şubat 2019'
-        },
-        {
-          value: 'Option5',
-          label: 'Mart 2019'
-        }
-      ], */
       value2: []
     }
   },
   mounted() {
     this.list = this.states.map((item) => {
-      return { value: item.id, label: item.name }
+      return { value: item.id, label: item.name, seoLink: item.seoLink }
     })
     this.defaultStates = this.popularStates.map((item) => {
-      return { value: item.id, label: item.name }
+      return { value: item.id, label: item.name, seoLink: item.seoLink }
     })
   },
   created() {
@@ -147,11 +130,20 @@ export default {
       }
     },
     getNow() {
-      const today = new Date()
-      const date =
-        today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + '01'
-      const dateTime = date + ' ' + '00:00:00'
-      this.date = dateTime
+      this.date = moment()
+    },
+    submitForm(e) {
+      e.preventDefault()
+      if (!this.value || !this.value2) {
+        this.$message({
+          message: 'Lütfen arama yapmak için Şehir, Ülke veya Tema Giriniz.',
+          type: 'warning'
+        })
+        return
+      }
+      const stateName = this.list.find((item) => item.value === this.value)
+        .seoLink
+      this.$router.push('/' + stateName + '/deneyimler/' + this.value)
     }
   }
 }

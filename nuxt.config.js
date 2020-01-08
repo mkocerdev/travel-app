@@ -54,9 +54,7 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    baseURL: 'https://traveappp.herokuapp.com'
-  },
+  axios: {},
   /*
    ** Build configuration
    */

@@ -7,7 +7,7 @@ router.get('/api/experience/all', async (req, res, next) => {
   try {
     const data = await experienceModel.all()
     const result = data.map(function(el) {
-      const o = Object.assign({}, el)
+      const o = { ...el }
       o.seoLink = helper.getSeoLink(el.title)
       return o
     })
@@ -22,7 +22,7 @@ router.post('/api/experience', async (req, res, next) => {
   try {
     const data = await experienceModel.getExperience(req.body.id)
     const result = data.map(function(el) {
-      const o = Object.assign({}, el)
+      const o = { ...el }
       o.seoLink = helper.getSeoLink(el.title)
       return o
     })
@@ -37,7 +37,7 @@ router.post('/api/experience/state', async (req, res, next) => {
   try {
     const data = await experienceModel.getExperienceState(req.body.id)
     const result = data.map(function(el) {
-      const o = Object.assign({}, el)
+      const o = { ...el }
       o.seoLink = helper.getSeoLink(el.name)
       return o
     })

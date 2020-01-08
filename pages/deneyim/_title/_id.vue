@@ -3,19 +3,7 @@
     <div class="experience-spot">
       <div class="experience-inner">
         <div class="experience-breadcrumb mb-4">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }"
-              >Anasayfa</el-breadcrumb-item
-            >
-            <el-breadcrumb-item
-              :to="`/${stateInfo.seoLink}/deneyimler/${experience.stateId}`"
-              >{{ stateInfo.name }}</el-breadcrumb-item
-            >
-            <el-breadcrumb-item>{{
-              primaryCategory.categoryName
-            }}</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ experience.title }}</el-breadcrumb-item>
-          </el-breadcrumb>
+          <breadcrumb :items="breadcrumbs" />
         </div>
         <gallery :gallery="gallery" :photo="experience.photo" />
         <div class="experience-header w-full float-left mt-4">
@@ -27,6 +15,7 @@
               />
               <div class="w-full">
                 <rating
+                  v-if="rating.length > 0"
                   :count="rateInfo.totalRate"
                   :rating="rateInfo.avgRate"
                 />
@@ -106,6 +95,7 @@
               title="Misafir Değerlendirmeleri"
             />
             <rating
+              v-if="rating.length > 0"
               :count="rateInfo.totalRate"
               :rating="rateInfo.avgRate"
               class="experience-rating__rateInfo"
@@ -139,6 +129,7 @@
 </template>
 
 <script>
+import breadcrumb from '~/components/shared/breadcrumb.vue'
 import gallery from '~/components/experiences/detail/gallery.vue'
 import basicInfo from '~/components/experiences/detail/basicInfo.vue'
 import rating from '~/components/experiences/detail/rating.vue'
@@ -162,6 +153,7 @@ import notes from '~/components/experiences/detail/notes.vue'
 import subtitle from '~/components/experiences/detail/subtitle.vue'
 export default {
   components: {
+    breadcrumb,
     gallery,
     basicInfo,
     rating,
@@ -185,6 +177,23 @@ export default {
     subtitle
   },
   computed: {
+    breadcrumbs() {
+      return [
+        {
+          link:
+            '/' +
+            this.stateInfo.seoLink +
+            '/deneyimler/' +
+            this.experience.stateId,
+          label: this.stateInfo.name
+        },
+        {
+          link:
+            '/deneyim/' + this.experience.seoLink + '/' + this.experience.id,
+          label: this.experience.title
+        }
+      ]
+    },
     experience() {
       return this.$store.state.experienceDetail.experience
     },

@@ -31,7 +31,7 @@ states.popular = () => {
 
 states.getStateName = (id) => {
   return new Promise((resolve, reject) => {
-    sql.query('SELECT name FROM states WHERE id = ? ', id, (err, res) => {
+    sql.query('SELECT id,name FROM states WHERE id = ? ', id, (err, res) => {
       if (err) {
         return reject(err)
       }
@@ -48,6 +48,77 @@ states.getStateExperience = (id) => {
       }
       return resolve(res)
     })
+  })
+}
+states.getStateFilterPrice = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM `experience_property` WHERE stateId = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
+states.getStateFilterDifficulty = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT DISTINCT(difficulty) as value, COUNT(difficulty) as count FROM `experience_property` WHERE stateId = ? GROUP BY difficulty',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+states.getStateFilterTime = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT DISTINCT(time) as value, COUNT(time) as count FROM `experience_property` WHERE stateId = ? GROUP BY time',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+states.getStateFilterLanguage = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT DISTINCT(languageId) as value, COUNT(languageId) as count FROM `experience_property` WHERE stateId = ? GROUP BY languageId',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+states.getStateFilterCapacity = (id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT DISTINCT(capacity) as value, COUNT(capacity) as count FROM `experience_property` WHERE stateId = ? GROUP BY capacity',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
   })
 }
 

@@ -1,9 +1,9 @@
 <template>
   <div class="main-inner">
-    <state-list :states="states" class="px-64 my-8" />
-    <section class="experience px-64 mb-8 mt-16">
+    <state-list :states="states" class="my-8" />
+    <section class="experience mb-8 mt-16">
       <div class="experience-heading w-full mb-4">
-        <h2 class="experience-heading_title font-bold">
+        <h2 class="experience-heading__title">
           Popüler Deneyimler
         </h2>
         <p class="experience-heading__descr">

@@ -1,3 +1,5 @@
+const language = require('../helpers/language.js')
+const difficulty = require('../helpers/difficulty.js')
 const getSeoLink = (string) => {
   const trMap = {
     çÇ: 'c',
@@ -16,6 +18,14 @@ const getSeoLink = (string) => {
     .replace(/[-]+/gi, '-') // trim repeated dashes
     .toLowerCase()
 }
+const getDifficultyName = (id) => {
+  return difficulty[id]
+}
+const getLanguageName = (id) => {
+  return language[id]
+}
 module.exports = {
-  getSeoLink
+  getSeoLink,
+  getDifficultyName,
+  getLanguageName
 }

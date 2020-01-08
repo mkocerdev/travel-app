@@ -9,13 +9,6 @@ export const actions = {
       commit('setExperience', response)
       commit('setLoading', false)
     })
-  },
-  async fetchStateExperience({ commit }, params) {
-    await this.$axios
-      .$post('/api/state/experience', params)
-      .then((response) => {
-        commit('setExperience', response)
-      })
   }
 }
 

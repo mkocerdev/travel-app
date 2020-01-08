@@ -1,7 +1,8 @@
 export const state = () => ({
   states: [],
   popularStates: [],
-  loadingStates: true
+  loadingStates: true,
+  stateDetail: null
 })
 
 export const actions = {
@@ -15,11 +16,6 @@ export const actions = {
     await this.$axios.$get('/api/states/popular').then((response) => {
       commit('setPopularStates', response)
     })
-  },
-  async fetchStateDetail({ commit }, stateId) {
-    await this.$axios.$post('/api/state', stateId).then((response) => {
-      commit('setStateDetail', response)
-    })
   }
 }
 
@@ -29,9 +25,6 @@ export const mutations = {
   },
   setPopularStates(state, popular) {
     state.popularStates = popular
-  },
-  setStateDetail(state, stateDetail) {
-    state.stateDetail = stateDetail
   },
   setLoading(state, loading) {
     state.loadingStates = loading

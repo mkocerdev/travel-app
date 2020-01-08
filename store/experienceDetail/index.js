@@ -28,7 +28,7 @@ export const actions = {
       dispatch('fetchExperienceReservations', state.id)
     ])
   },
-  async fetchExperience({ commit, dispatch }, id) {
+  async fetchExperience({ commit }, id) {
     await this.$axios.$post('/api/experience', id).then((response) => {
       commit('setExperience', response)
     })
