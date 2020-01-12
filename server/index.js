@@ -1,14 +1,16 @@
 const express = require('express')
 const { Nuxt, Builder } = require('nuxt')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
-const apiRouter = require('./routes/experienceRoutes')
-const apiRouter1 = require('./routes/statesRoutes')
+const experienceRoutes = require('./routes/experienceRoutes')
+const statesRoutes = require('./routes/statesRoutes')
 const app = express()
 async function start() {
+  app.use(cors())
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
 
@@ -29,7 +31,7 @@ async function start() {
       extended: true
     })
   )
-  app.use(apiRouter, apiRouter1)
+  app.use(experienceRoutes, statesRoutes)
   // Give nuxt middleware to express
   app.use(nuxt.render)
 
