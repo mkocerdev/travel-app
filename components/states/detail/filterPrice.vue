@@ -5,18 +5,22 @@
         {{ price.label }}
       </div>
       <el-slider
-        v-model="value2"
-        :min="price.data.minPrice"
-        :max="price.data.maxPrice"
+        :disabled="price.data[0].minPrice == price.data[0].maxPrice"
+        :show-tooltip="price.data[0].minPrice != price.data[0].maxPrice"
+        :class="{ disabled: price.data[0].minPrice == price.data[0].maxPrice }"
+        :min="price.data[0].minPrice"
+        :max="price.data[0].maxPrice"
         :step="100"
+        @change="selectedPrice"
+        class="price-range"
         range
       ></el-slider>
-      <div class="price-slider-marks">
+      <div class="price-range-marks">
         <span class="price-range-marks__item price-range-marks__item--min">
-          {{ price.data.minPrice }} TL
+          {{ price.data[0].minPrice }} TL
         </span>
         <span class="price-range-marks__item price-range-marks__item--max">
-          {{ price.data.maxPrice }} TL
+          {{ price.data[0].maxPrice }} TL
         </span>
       </div>
     </div>
@@ -31,9 +35,12 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      value2: this.price.data.minPrice
+  methods: {
+    async selectedPrice(price) {
+      await this.$store.dispatch('stateDetail/selectedFilter', {
+        filterType: this.price.filterType,
+        filter: [...price]
+      })
     }
   }
 }

@@ -31,7 +31,79 @@ states.popular = () => {
 
 states.getStateName = (id) => {
   return new Promise((resolve, reject) => {
-    sql.query('SELECT id,name FROM states WHERE id = ? ', id, (err, res) => {
+    sql.query(
+      'SELECT id,name,descr FROM states WHERE id = ? ',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+states.updateStateExperience = (filters, stateId, page, sort, price) => {
+  return new Promise((resolve, reject) => {
+    const filterParams = [] // filter params
+    const offset = (page - 1) * 2 // offset sql
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT e.*, ep.price, s.name as stateName FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id WHERE ( ep.stateId = ? ) '
+    if (price.length > 0) {
+      filterQuery = filterQuery + 'AND ep.price >= ? AND ep.price <= ?'
+      filterParams.push(price[0])
+      filterParams.push(price[1])
+    }
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + 'ep.' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
+        }
+        filterQuery = filterQuery + ') '
+      })
+    }
+    filterQuery = filterQuery + ' ORDER BY ' + sort
+    filterQuery = filterQuery + ' LIMIT 2 OFFSET ?'
+    filterParams.push(offset)
+    sql.query(filterQuery, filterParams, (err, res) => {
+      if (err) {
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+states.updateStateExperienceCount = (filters, stateId, price) => {
+  return new Promise((resolve, reject) => {
+    const filterParams = [] // filter params
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT COUNT(*) as totalCount from experience_property as ep WHERE ( ep.stateId = ? )'
+    if (price.length > 0) {
+      filterQuery = filterQuery + 'AND ep.price >= ? AND ep.price <= ?'
+      filterParams.push(price[0])
+      filterParams.push(price[1])
+    }
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + 'ep.' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
+        }
+        filterQuery = filterQuery + ') '
+      })
+    }
+    sql.query(filterQuery, filterParams, (err, res) => {
       if (err) {
         return reject(err)
       }
@@ -40,9 +112,26 @@ states.getStateName = (id) => {
   })
 }
 
-states.getStateExperience = (id) => {
+states.getStateFilterPrice = (filters, stateId) => {
   return new Promise((resolve, reject) => {
-    sql.query('SELECT * FROM experience WHERE stateId = ?', id, (err, res) => {
+    const filterParams = [] // filter params
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM `experience_property` WHERE ( stateId = ? )'
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + '' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
+        }
+        filterQuery = filterQuery + ') '
+      })
+    }
+    sql.query(filterQuery, filterParams, (err, res) => {
       if (err) {
         return reject(err)
       }
@@ -50,76 +139,136 @@ states.getStateExperience = (id) => {
     })
   })
 }
-states.getStateFilterPrice = (id) => {
+states.getStateFilterDifficulty = (filters, price, stateId) => {
   return new Promise((resolve, reject) => {
-    sql.query(
-      'SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM `experience_property` WHERE stateId = ?',
-      id,
-      (err, res) => {
-        if (err) {
-          return reject(err)
+    const filterParams = [] // filter params
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT DISTINCT(difficulty) as value, COUNT(difficulty) as count FROM `experience_property` WHERE (stateId = ?) '
+    if (price.length > 0) {
+      filterQuery = filterQuery + 'AND price >= ? AND price <= ? '
+      filterParams.push(price[0])
+      filterParams.push(price[1])
+    }
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + '' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
         }
-        return resolve(res)
+        filterQuery = filterQuery + ') '
+      })
+    }
+    filterQuery = filterQuery + 'GROUP BY difficulty'
+    sql.query(filterQuery, filterParams, (err, res) => {
+      if (err) {
+        return reject(err)
       }
-    )
+      return resolve(res)
+    })
   })
 }
-
-states.getStateFilterDifficulty = (id) => {
+states.getStateFilterTime = (filters, price, stateId) => {
   return new Promise((resolve, reject) => {
-    sql.query(
-      'SELECT DISTINCT(difficulty) as value, COUNT(difficulty) as count FROM `experience_property` WHERE stateId = ? GROUP BY difficulty',
-      id,
-      (err, res) => {
-        if (err) {
-          return reject(err)
+    const filterParams = [] // filter params
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT DISTINCT(time) as value, COUNT(time) as count FROM `experience_property` WHERE (stateId = ?) '
+    if (price.length > 0) {
+      filterQuery = filterQuery + 'AND price >= ? AND price <= ? '
+      filterParams.push(price[0])
+      filterParams.push(price[1])
+    }
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + '' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
         }
-        return resolve(res)
+        filterQuery = filterQuery + ') '
+      })
+    }
+    filterQuery = filterQuery + 'GROUP BY time'
+    sql.query(filterQuery, filterParams, (err, res) => {
+      if (err) {
+        return reject(err)
       }
-    )
+      return resolve(res)
+    })
   })
 }
-states.getStateFilterTime = (id) => {
+states.getStateFilterLanguage = (filters, price, stateId) => {
   return new Promise((resolve, reject) => {
-    sql.query(
-      'SELECT DISTINCT(time) as value, COUNT(time) as count FROM `experience_property` WHERE stateId = ? GROUP BY time',
-      id,
-      (err, res) => {
-        if (err) {
-          return reject(err)
+    const filterParams = [] // filter params
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT DISTINCT(language) as value, COUNT(language) as count FROM `experience_property` WHERE (stateId = ?) '
+    if (price.length > 0) {
+      filterQuery = filterQuery + 'AND price >= ? AND price <= ? '
+      filterParams.push(price[0])
+      filterParams.push(price[1])
+    }
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + '' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
         }
-        return resolve(res)
+        filterQuery = filterQuery + ') '
+      })
+    }
+    filterQuery = filterQuery + 'GROUP BY language'
+    sql.query(filterQuery, filterParams, (err, res) => {
+      if (err) {
+        return reject(err)
       }
-    )
+      return resolve(res)
+    })
   })
 }
-states.getStateFilterLanguage = (id) => {
+states.getStateFilterCapacity = (filters, price, stateId) => {
   return new Promise((resolve, reject) => {
-    sql.query(
-      'SELECT DISTINCT(languageId) as value, COUNT(languageId) as count FROM `experience_property` WHERE stateId = ? GROUP BY languageId',
-      id,
-      (err, res) => {
-        if (err) {
-          return reject(err)
+    const filterParams = [] // filter params
+    filterParams.push(stateId) // stateid
+    let filterQuery =
+      'SELECT DISTINCT(capacity) as value, COUNT(capacity) as count FROM `experience_property` WHERE (stateId = ?) '
+    if (price.length > 0) {
+      filterQuery = filterQuery + 'AND price >= ? AND price <= ? '
+      filterParams.push(price[0])
+      filterParams.push(price[1])
+    }
+    if (filters.length > 0) {
+      filters.forEach((item) => {
+        filterQuery = filterQuery + ' AND ('
+        for (const key in item.filter) {
+          filterParams.push(item.filter[key])
+          filterQuery = filterQuery + '' + item.filterType + ' = ?'
+          if (key < item.filter.length - 1) {
+            filterQuery = filterQuery + ' OR '
+          }
         }
-        return resolve(res)
+        filterQuery = filterQuery + ') '
+      })
+    }
+    filterQuery = filterQuery + 'GROUP BY capacity'
+    sql.query(filterQuery, filterParams, (err, res) => {
+      if (err) {
+        return reject(err)
       }
-    )
+      return resolve(res)
+    })
   })
 }
-states.getStateFilterCapacity = (id) => {
-  return new Promise((resolve, reject) => {
-    sql.query(
-      'SELECT DISTINCT(capacity) as value, COUNT(capacity) as count FROM `experience_property` WHERE stateId = ? GROUP BY capacity',
-      id,
-      (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-        return resolve(res)
-      }
-    )
-  })
-}
-
 module.exports = states

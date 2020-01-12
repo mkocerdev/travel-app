@@ -30,7 +30,7 @@
                 </el-option>
               </el-select>
 
-              <i class="home-search__tour-icon el-icon-search"></i>
+              <i class="home-search__tour-icon el-icon-location-outline"></i>
             </div>
             <div class="home-search__period w-5/12 float-left">
               <div class="block">

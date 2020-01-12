@@ -13,7 +13,7 @@
                 :title="experience.title"
                 :sdescr="experience.sdescr"
               />
-              <div class="w-full">
+              <div class="w-full float-left">
                 <rating
                   v-if="rating.length > 0"
                   :count="rateInfo.totalRate"
@@ -49,7 +49,7 @@
         <div class="experience-content-wrapper w-9/12 float-left">
           <div class="experience-labels">
             <labelDifficulty :difficulty="experience.difficulty" />
-            <labelLanguage :languageId="experience.languageId" />
+            <labelLanguage :language="experience.language" />
             <labelTime :time="experience.time" />
             <labelCapacity :capacity="experience.capacity" />
           </div>
@@ -59,43 +59,48 @@
               <plan :descr="experience.descr" />
             </div>
           </div>
-          <div class="experience-needs">
+          <div v-if="needs.length > 0" class="experience-needs">
             <subtitle title="Seyahat için gerekenler" />
             <div class="needs-content">
               <needs :needs="needs" />
             </div>
           </div>
-          <div class="experience-program">
+          <div v-if="program.length > 0" class="experience-program">
             <subtitle title="Seyahat Programı" />
             <div class="program-content">
               <program :program="program" />
             </div>
           </div>
-          <div class="experience-includedprice">
+          <div
+            v-if="experience.includedPrice.length > 0"
+            class="experience-includedprice"
+          >
             <subtitle title="Fiyata Dahil Olanlar" />
             <div class="includedprice-content">
               <includedPrice :content="experience.includedPrice" />
             </div>
           </div>
-          <div class="experience-excludedprice">
+          <div
+            v-if="experience.excludedPrice.length > 0"
+            class="experience-excludedprice"
+          >
             <subtitle title="Fiyata Dahil Olmayanlar" />
             <div class="excludedprice-content">
               <excludedPrice :content="experience.excludedPrice" />
             </div>
           </div>
-          <div class="experience-guest-photos">
+          <div v-if="guestPhotos.length > 0" class="experience-guest-photos">
             <subtitle title="Misafir Fotoğrafları" />
             <div class="">
               <guestPhotos :photos="guestPhotos" class="photos-content" />
             </div>
           </div>
-          <div class="experience-rating">
+          <div v-if="rating.length > 0" class="experience-rating">
             <subtitle
               class="experience-rating__title"
               title="Misafir Değerlendirmeleri"
             />
             <rating
-              v-if="rating.length > 0"
               :count="rateInfo.totalRate"
               :rating="rateInfo.avgRate"
               class="experience-rating__rateInfo"
@@ -110,7 +115,7 @@
               <location />
             </div>
           </div>
-          <div class="experience-notes">
+          <div v-if="experience.note.length > 0" class="experience-notes">
             <subtitle title="Dikkat edilmesi gerekenler" />
             <div class="notes-content">
               <notes :content="experience.note" />

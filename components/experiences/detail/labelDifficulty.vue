@@ -6,13 +6,8 @@
       </div>
       <div class="w-8/12 float-left">
         <p class="label-box__text">Zorluk Düzeyi</p>
-        <p
-          :style="{
-            color: difficultyTitle[difficulty].color
-          }"
-          class="label-box__data"
-        >
-          {{ difficultyTitle[difficulty].title }}
+        <p class="label-box__data">
+          {{ difficulty }}
         </p>
       </div>
     </div>
@@ -22,30 +17,30 @@
 export default {
   props: {
     difficulty: {
-      type: Number,
+      type: String,
       required: true
     }
   },
   data() {
     return {
       difficultyTitle: {
-        1: {
+        0: {
           title: 'Çok Kolay',
           color: '#72de84'
         },
-        2: {
+        1: {
           title: 'Kolay',
           color: '#1baf34'
         },
-        3: {
+        2: {
           title: 'Orta',
           color: '#ff8822'
         },
-        4: {
+        3: {
           title: 'Zor',
           color: '#e86464'
         },
-        5: {
+        4: {
           title: 'Çok Zor',
           color: '#ec0404'
         }

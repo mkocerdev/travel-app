@@ -6,7 +6,7 @@
       </div>
       <div class="w-8/12 float-left">
         <p class="label-box__text">Misafir Sayısı</p>
-        <p class="label-box__data">{{ capacity }} kişi</p>
+        <p class="label-box__data">{{ capacity }}</p>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
 export default {
   props: {
     capacity: {
-      type: Number,
+      type: String,
       required: true
     }
   }

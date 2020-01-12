@@ -3,23 +3,30 @@ const experience = {}
 
 experience.all = () => {
   return new Promise((resolve, reject) => {
-    sql.query('Select * from experience', (err, res) => {
-      if (err) {
-        return reject(err)
+    sql.query(
+      'SELECT e.*, ep.price, s.name as stateName FROM experience e INNER JOIN experience_property ep ON e.id = ep.id LEFT JOIN states as s ON ep.stateId = s.id',
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
       }
-      return resolve(res)
-    })
+    )
   })
 }
 
 experience.getExperience = (id) => {
   return new Promise((resolve, reject) => {
-    sql.query('SELECT * FROM experience WHERE id = ?', id, (err, res) => {
-      if (err) {
-        return reject(err)
+    sql.query(
+      'SELECT * FROM experience e INNER JOIN experience_property ep ON e.id = ep.id WHERE e.id = ?',
+      id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
       }
-      return resolve(res)
-    })
+    )
   })
 }
 

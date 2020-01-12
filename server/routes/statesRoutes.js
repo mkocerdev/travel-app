@@ -33,20 +33,6 @@ router.get('/api/states/popular', async (req, res, next) => {
   }
 })
 
-router.post('/api/state/experience', async (req, res, next) => {
-  try {
-    const data = await statesModel.getStateExperience(req.body.id)
-    const result = data.map(function(el) {
-      const o = { ...el }
-      o.seoLink = helper.getSeoLink(el.title)
-      return o
-    })
-    res.json(result)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-})
 router.post('/api/state', async (req, res, next) => {
   try {
     const data = await statesModel.getStateName(req.body.id)
@@ -63,36 +49,91 @@ router.post('/api/state', async (req, res, next) => {
 })
 router.post('/api/state/filter', async (req, res, next) => {
   try {
+    const getFilters = req.body.filter
     const filters = []
-    /* difficulty */
+    // price data catch
+
+    const getPriceData = []
+    getFilters.filter((item) => {
+      if (item.filterType === 'price') {
+        getPriceData.push(...item.filter)
+      }
+    })
+    // price
+    const priceObj = {
+      filterType: 'price',
+      label: 'Fiyat Aralığı',
+      data: null
+    }
+
+    const exPrice = []
+    getFilters.filter(function(item) {
+      if (item.filterType !== 'price') {
+        exPrice.push(item)
+      }
+    })
+
+    const resultPrice = await statesModel.getStateFilterPrice(
+      exPrice,
+      req.body.id
+    )
+    priceObj.data = { ...resultPrice }
+    filters.push(priceObj)
+
+    // difficulty obj
     const difficultyObj = {
       filterType: 'difficulty',
       label: 'Deneyim Seviyesi',
       data: null
     }
+    // filter without difficulty
+    const exDifficulty = []
+    exPrice.filter(function(item) {
+      if (item.filterType !== 'difficulty') {
+        exDifficulty.push(item)
+      }
+    })
+    // post difficulty filters model
     const difficultyData = await statesModel.getStateFilterDifficulty(
+      exDifficulty,
+      getPriceData,
       req.body.id
     )
+    // model result edit name
     const resultDifficulty = difficultyData.map(function(el) {
       const o = { ...el }
       o.label = helper.getDifficultyName(el.value)
       return o
     })
     difficultyObj.data = { ...resultDifficulty }
+    // push difficulty obj
     filters.push(difficultyObj)
-    /* time */
+
     const timeObj = {
       filterType: 'time',
       label: 'Deneyim Süresi',
       data: null
     }
-    const timeData = await statesModel.getStateFilterTime(req.body.id)
+
+    const exTime = []
+    exPrice.filter(function(item) {
+      if (item.filterType !== 'time') {
+        exTime.push(item)
+      }
+    })
+
+    const timeData = await statesModel.getStateFilterTime(
+      exTime,
+      getPriceData,
+      req.body.id
+    )
     const resultTime = timeData.map(function(el) {
       const o = { ...el }
       o.label = el.value + ' gün'
       return o
     })
     timeObj.data = { ...resultTime }
+
     filters.push(timeObj)
     /* language */
     const languageObj = {
@@ -100,7 +141,19 @@ router.post('/api/state/filter', async (req, res, next) => {
       label: 'Deneyim Dili',
       data: null
     }
-    const languageData = await statesModel.getStateFilterLanguage(req.body.id)
+
+    const exLanguage = []
+    exPrice.filter(function(item) {
+      if (item.filterType !== 'language') {
+        exLanguage.push(item)
+      }
+    })
+
+    const languageData = await statesModel.getStateFilterLanguage(
+      exLanguage,
+      getPriceData,
+      req.body.id
+    )
     const resultLanguage = languageData.map(function(el) {
       const o = { ...el }
       o.label = helper.getLanguageName(el.value)
@@ -114,7 +167,19 @@ router.post('/api/state/filter', async (req, res, next) => {
       label: 'Misafir Sayısı',
       data: null
     }
-    const capacityData = await statesModel.getStateFilterCapacity(req.body.id)
+
+    const exCapacity = []
+    exPrice.filter(function(item) {
+      if (item.filterType !== 'capacity') {
+        exCapacity.push(item)
+      }
+    })
+
+    const capacityData = await statesModel.getStateFilterCapacity(
+      exCapacity,
+      getPriceData,
+      req.body.id
+    )
     const resultCapacity = capacityData.map(function(el) {
       const o = { ...el }
       o.label = el.value + ' kişi'
@@ -123,64 +188,55 @@ router.post('/api/state/filter', async (req, res, next) => {
     capacityObj.data = { ...resultCapacity }
     filters.push(capacityObj)
 
+    // return filters
     res.json(filters)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
   }
 })
-router.post('/api/state/filter/price', async (req, res, next) => {
+router.post('/api/state/filter/experience', async (req, res, next) => {
   try {
-    const price = { filterType: 'price', label: 'Fiyat Aralığı', data: null }
-    const data = await statesModel.getStateFilterPrice(req.body.id)
-    price.data = { ...data[0] }
-    res.json(price)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-})
-router.post('/api/state/filter/difficulty', async (req, res, next) => {
-  try {
-    const difficulty = {
-      filterType: 'difficulty',
-      label: 'Zorluk Düzeyi',
-      data: null
+    const getFilters = req.body.filter
+    const returnObj = {
+      data: [],
+      totalCount: 0
     }
-    const data = await statesModel.getStateFilterDifficulty(req.body.id)
-    difficulty.data = { ...data[0] }
-    res.json(difficulty)
+    const exPrice = []
+    getFilters.filter(function(item) {
+      if (item.filterType !== 'price') {
+        exPrice.push(item)
+      }
+    })
+    const getPriceData = []
+    getFilters.filter((item) => {
+      if (item.filterType === 'price') {
+        getPriceData.push(...item.filter)
+      }
+    })
+    const experiencesDb = await statesModel.updateStateExperience(
+      exPrice,
+      req.body.id,
+      req.body.page,
+      req.body.sort,
+      getPriceData
+    )
+    const experienceResult = experiencesDb.map(function(experience) {
+      const o = { ...experience }
+      o.seoLink = helper.getSeoLink(experience.title)
+      return o
+    })
+    const countResult = await statesModel.updateStateExperienceCount(
+      exPrice,
+      req.body.id,
+      getPriceData
+    )
+    returnObj.data = experienceResult
+    returnObj.totalCount = countResult[0].totalCount
+    res.json(returnObj)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
   }
 })
-router.post('/api/state/filter/time', async (req, res, next) => {
-  try {
-    const data = await statesModel.getStateFilterTime(req.body.id)
-    res.json(data)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-})
-router.post('/api/state/filter/language', async (req, res, next) => {
-  try {
-    const data = await statesModel.getStateFilterLanguage(req.body.id)
-    res.json(data)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-})
-router.post('/api/state/filter/capacity', async (req, res, next) => {
-  try {
-    const data = await statesModel.getStateFilterCapacity(req.body.id)
-    res.json(data)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-})
-
 module.exports = router

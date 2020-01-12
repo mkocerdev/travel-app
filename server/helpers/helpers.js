@@ -1,5 +1,6 @@
 const language = require('../helpers/language.js')
 const difficulty = require('../helpers/difficulty.js')
+
 const getSeoLink = (string) => {
   const trMap = {
     çÇ: 'c',

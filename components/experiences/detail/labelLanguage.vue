@@ -7,7 +7,7 @@
       <div class="w-8/12 float-left">
         <p class="label-box__text">Dil</p>
         <p class="label-box__data">
-          {{ languageName[languageId] }}
+          {{ language }}
         </p>
       </div>
     </div>
@@ -16,16 +16,16 @@
 <script>
 export default {
   props: {
-    languageId: {
-      type: Number,
+    language: {
+      type: String,
       required: true
     }
   },
   data() {
     return {
       languageName: {
-        1: 'Türkçe',
-        2: 'İngilizce'
+        0: 'Türkçe',
+        1: 'İngilizce'
       }
     }
   }

@@ -21,9 +21,13 @@ router.get('/api/experience/all', async (req, res, next) => {
 router.post('/api/experience', async (req, res, next) => {
   try {
     const data = await experienceModel.getExperience(req.body.id)
-    const result = data.map(function(el) {
-      const o = { ...el }
-      o.seoLink = helper.getSeoLink(el.title)
+    const result = data.map(function(experience) {
+      const o = { ...experience }
+      o.seoLink = helper.getSeoLink(experience.title)
+      o.difficulty = helper.getDifficultyName(experience.difficulty)
+      o.time = experience.time + ' gün'
+      o.language = helper.getLanguageName(experience.language)
+      o.capacity = experience.capacity + ' kişi'
       return o
     })
     res.json(result[0])

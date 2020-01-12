@@ -1,6 +1,6 @@
 <template>
   <div class="experience-wrapper">
-    <div v-if="experiences.length > 0">
+    <template v-if="experiences.length > 0">
       <div
         v-for="(item, index) in experiences"
         :key="index"
@@ -22,13 +22,15 @@
                   <i class="el-icon-star-on"></i>
                 </p>
               </div>
-              <p class="experience-box-content__state float">İzmir</p>
+              <p class="experience-box-content__state float">
+                {{ item.stateName }}
+              </p>
               <p class="experience-box-content__price">{{ item.price }} TL</p>
             </div>
           </nuxt-link>
         </div>
       </div>
-    </div>
+    </template>
     <div v-else>
       Sonuç bulunamadı
     </div>

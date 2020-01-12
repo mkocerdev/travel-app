@@ -6,7 +6,7 @@
       </div>
       <div class="w-8/12 float-left">
         <p class="label-box__text">Süre</p>
-        <p class="label-box__data">{{ time }} gün</p>
+        <p class="label-box__data">{{ time }}</p>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
 export default {
   props: {
     time: {
-      type: Number,
+      type: String,
       required: true
     }
   }
