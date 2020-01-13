@@ -13,10 +13,12 @@
         @click="price"
         class="state-result-sorting__item state-result-sorting__date"
       >
-        <i class="el-icon-sort"></i>
-        <span>Fiyata Göre</span>
-        <span v-if="priceSort">Azalan</span>
-        <span v-else>Artan</span>
+        <p>
+          <i class="el-icon-sort"></i>
+          Fiyata Göre
+          <span v-if="priceSort">Azalan</span>
+          <span v-else>Artan</span>
+        </p>
       </button>
     </div>
   </div>

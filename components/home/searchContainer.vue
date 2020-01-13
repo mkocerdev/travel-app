@@ -33,39 +33,36 @@
               <i class="home-search__tour-icon el-icon-location-outline"></i>
             </div>
             <div class="home-search__period w-5/12 float-left">
-              <div class="block">
-                <el-select
-                  v-model="value2"
-                  class="w-full"
-                  multiple
-                  collapse-tags
-                  style="height:60px"
-                  placeholder="Dönem Seçiniz"
+              <el-select
+                v-model="value2"
+                class="w-full"
+                multiple
+                collapse-tags
+                placeholder="Dönem Seçiniz"
+              >
+                <el-option label="Herhangi bir dönem" value="all"> </el-option>
+                <el-option
+                  :label="moment(date).format('MMMM YYYY')"
+                  :value="moment(date).format('l')"
                 >
-                  <el-option label="Herhangi bir dönem" value="all">
-                  </el-option>
-                  <el-option
-                    :label="moment(date).format('MMMM YYYY')"
-                    :value="moment(date).format('l')"
-                  >
-                  </el-option>
-                  <el-option
-                    v-for="i in 11"
-                    :key="i"
-                    :label="
-                      moment(date)
-                        .add(i, 'months')
-                        .format('MMMM YYYY')
-                    "
-                    :value="
-                      moment(date)
-                        .add(i, 'months')
-                        .format('l')
-                    "
-                  >
-                  </el-option>
-                </el-select>
-              </div>
+                </el-option>
+                <el-option
+                  v-for="i in 11"
+                  :key="i"
+                  :label="
+                    moment(date)
+                      .add(i, 'months')
+                      .format('MMMM YYYY')
+                  "
+                  :value="
+                    moment(date)
+                      .add(i, 'months')
+                      .format('l')
+                  "
+                >
+                </el-option>
+              </el-select>
+              <i class="home-search__date-icon el-icon-date"></i>
             </div>
             <div class="home-search__button-wrapper w-2/12 float-left">
               <button class="home-search__button">Ara</button>
