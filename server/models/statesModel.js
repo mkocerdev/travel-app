@@ -49,7 +49,7 @@ states.updateStateExperience = (filters, stateId, page, sort, price) => {
     const offset = (page - 1) * 2 // offset sql
     filterParams.push(stateId) // stateid
     let filterQuery =
-      'SELECT e.*, ep.price, s.name as stateName FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id WHERE ( ep.stateId = ? ) '
+      'SELECT e.id, e.title, e.photo, ep.price, s.name as stateName FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id WHERE ( ep.stateId = ? ) '
     if (price.length > 0) {
       filterQuery = filterQuery + 'AND ep.price >= ? AND ep.price <= ?'
       filterParams.push(price[0])

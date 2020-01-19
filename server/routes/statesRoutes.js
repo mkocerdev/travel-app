@@ -188,32 +188,6 @@ router.post('/api/state/filter', async (req, res, next) => {
     capacityObj.data = { ...resultCapacity }
     filters.push(capacityObj)
 
-    // return filters
-    res.json(filters)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-})
-router.post('/api/state/filter/experience', async (req, res, next) => {
-  try {
-    const getFilters = req.body.filter
-    const returnObj = {
-      data: [],
-      totalCount: 0
-    }
-    const exPrice = []
-    getFilters.filter(function(item) {
-      if (item.filterType !== 'price') {
-        exPrice.push(item)
-      }
-    })
-    const getPriceData = []
-    getFilters.filter((item) => {
-      if (item.filterType === 'price') {
-        getPriceData.push(...item.filter)
-      }
-    })
     const experiencesDb = await statesModel.updateStateExperience(
       exPrice,
       req.body.id,
@@ -231,8 +205,16 @@ router.post('/api/state/filter/experience', async (req, res, next) => {
       req.body.id,
       getPriceData
     )
-    returnObj.data = experienceResult
-    returnObj.totalCount = countResult[0].totalCount
+    const returnObj = {
+      filters: [],
+      experience: [],
+      experienceCount: 0
+    }
+    returnObj.experience = experienceResult
+    returnObj.experienceCount = countResult[0].totalCount
+    returnObj.filters = filters
+
+    // return filters
     res.json(returnObj)
   } catch (e) {
     console.log(e)

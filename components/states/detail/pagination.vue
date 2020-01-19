@@ -31,7 +31,7 @@ export default {
 
   methods: {
     async pageChange(val) {
-      await this.$store.dispatch('stateDetail/fetchStateExperience')
+      await this.$store.dispatch('stateDetail/fetchStateFilters')
     }
   }
 }

@@ -9,15 +9,19 @@
       </p>
     </div>
     <div class="state-result-sorting">
-      <button
-        @click="price"
-        class="state-result-sorting__item state-result-sorting__date"
-      >
-        <p>
-          <i class="el-icon-sort"></i>
+      <button @click="price" class="state-result-sorting__item">
+        <p class="result-sorting-price">
           Fiyata Göre
-          <span v-if="priceSort">Azalan</span>
-          <span v-else>Artan</span>
+          <span
+            v-if="priceSort"
+            class="result-sorting-price__item result-sorting-price--low"
+            >Azalan</span
+          >
+          <span
+            v-else
+            class="result-sorting-price__item result-sorting-price--high"
+            >Artan</span
+          >
         </p>
       </button>
     </div>

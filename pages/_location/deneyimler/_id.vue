@@ -1,6 +1,7 @@
 <template>
   <div class="state">
     <div class="state-inner">
+      {{ loading }}
       <section class="state-wrapper">
         <div class="state-breadcrumb">
           <breadcrumb :items="breadcrumbs" />
@@ -33,7 +34,7 @@
             :totalCount="experiencesCount"
           />
           <experiences-list :boxSize="3" :experiences="experiences" />
-          <pagination :count="experiencesCount" />
+          <pagination :count="experiencesCount" class="experience-pagination" />
         </div>
       </section>
       <div style="height:1500px"></div>
