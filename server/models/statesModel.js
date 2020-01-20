@@ -18,7 +18,7 @@ states.popular = () => {
   return new Promise((resolve, reject) => {
     sql.query(
       // 'SELECT s.name, s.descr, s.photo, SUM(t.id) as toursSum FROM states as s INNER JOIN tours as t ON t.stateId = s.id;',
-      'SELECT id,name, descr, photo FROM states WHERE photo <> "" LIMIT 5',
+      'SELECT DISTINCT s.id, s.name, s.descr, s.photo, COUNT(e.id) as count FROM states as s LEFT JOIN experience as e ON s.id = e.stateId WHERE s.photo <> "" GROUP BY s.id LIMIT 5 ',
       (err, res) => {
         if (err) {
           return reject(err)
@@ -49,7 +49,7 @@ states.updateStateExperience = (filters, stateId, page, sort, price) => {
     const offset = (page - 1) * 2 // offset sql
     filterParams.push(stateId) // stateid
     let filterQuery =
-      'SELECT e.id, e.title, e.photo, ep.price, s.name as stateName FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id WHERE ( ep.stateId = ? ) '
+      'SELECT e.id, e.title, e.photo, ep.price, s.name as stateName, CONVERT(AVG(DISTINCT er.star), DECIMAL(10,1)) as avgRate FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id LEFT JOIN experience_rating as er ON e.id = er.experienceId WHERE ( ep.stateId = ? )'
     if (price.length > 0) {
       filterQuery = filterQuery + 'AND ep.price >= ? AND ep.price <= ?'
       filterParams.push(price[0])
@@ -68,6 +68,7 @@ states.updateStateExperience = (filters, stateId, page, sort, price) => {
         filterQuery = filterQuery + ') '
       })
     }
+    filterQuery = filterQuery + ' GROUP BY e.id'
     filterQuery = filterQuery + ' ORDER BY ' + sort
     filterQuery = filterQuery + ' LIMIT 2 OFFSET ?'
     filterParams.push(offset)

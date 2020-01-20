@@ -9,6 +9,7 @@ router.get('/api/experience/all', async (req, res, next) => {
     const result = data.map(function(el) {
       const o = { ...el }
       o.seoLink = helper.getSeoLink(el.title)
+      o.stateSeoLink = helper.getSeoLink(el.stateName)
       return o
     })
     res.json(result)
@@ -112,6 +113,25 @@ router.post('/api/experience/reservations', async (req, res, next) => {
   try {
     const data = await experienceModel.getExperienceReservations(req.body.id)
     res.json(data)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+})
+router.post('/api/experience/similar', async (req, res, next) => {
+  try {
+    const stateData = await experienceModel.getExperienceState(req.body.id)
+    const data = await experienceModel.getExperienceSimilar(
+      req.body.id,
+      stateData[0].id
+    )
+    const result = data.map(function(el) {
+      const o = { ...el }
+      o.seoLink = helper.getSeoLink(el.title)
+      o.stateSeoLink = helper.getSeoLink(el.stateName)
+      return o
+    })
+    res.json(result)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)

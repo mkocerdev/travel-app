@@ -20,7 +20,7 @@
             </div>
             <div class="states-box__content">
               <h3 class="states-box__name">{{ state.name }}</h3>
-              <p class="states-box__experienceSum">28 seyahat</p>
+              <p class="states-box__experienceSum">{{ state.count }} seyahat</p>
             </div></nuxt-link
           >
         </div>

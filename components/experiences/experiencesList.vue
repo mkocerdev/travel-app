@@ -8,7 +8,9 @@
         class="experience-box"
       >
         <div class="experience-box__inner">
-          <nuxt-link :to="`/deneyim/${item.seoLink}/${item.id}`">
+          <nuxt-link
+            :to="`/${item.stateSeoLink}/deneyim/${item.seoLink}/${item.id}`"
+          >
             <div class="experience-box-img">
               <div class="experience-box-img__wrapper">
                 <img :src="item.photo" class="experience-box-img__item" />
@@ -17,8 +19,11 @@
             <div class="experience-box-content">
               <div>
                 <h3 class="experience-box-content__name">{{ item.title }}</h3>
-                <p class="experience-box-content__rating">
-                  4,5
+                <p
+                  v-if="item.avgRate > 0"
+                  class="experience-box-content__rating"
+                >
+                  {{ item.avgRate }}
                   <i class="el-icon-star-on"></i>
                 </p>
               </div>

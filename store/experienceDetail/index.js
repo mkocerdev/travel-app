@@ -9,6 +9,7 @@ export const state = () => ({
   program: [],
   rating: [],
   reservations: [],
+  similar: [],
   category: null
 })
 
@@ -25,7 +26,8 @@ export const actions = {
       dispatch('fetchExperienceRating', state.id),
       dispatch('fetchExperienceRateInfo', state.id),
       dispatch('fetchExperienceCategory', state.id),
-      dispatch('fetchExperienceReservations', state.id)
+      dispatch('fetchExperienceReservations', state.id),
+      dispatch('fetchExperienceSimilar', state.id)
     ])
   },
   async fetchExperience({ commit }, id) {
@@ -83,6 +85,11 @@ export const actions = {
       .then((response) => {
         commit('setReservations', response)
       })
+  },
+  async fetchExperienceSimilar({ commit }, id) {
+    await this.$axios.$post('/api/experience/similar', id).then((response) => {
+      commit('setSimilar', response)
+    })
   }
 }
 
@@ -119,5 +126,8 @@ export const mutations = {
   },
   setReservations(state, reservations) {
     state.reservations = reservations
+  },
+  setSimilar(state, similar) {
+    state.similar = similar
   }
 }

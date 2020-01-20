@@ -1,7 +1,6 @@
 <template>
   <div class="state">
-    <div class="state-inner">
-      {{ loading }}
+    <div v-loading="loading" class="state-inner">
       <section class="state-wrapper">
         <div class="state-breadcrumb">
           <breadcrumb :items="breadcrumbs" />

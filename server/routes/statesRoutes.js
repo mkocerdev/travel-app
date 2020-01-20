@@ -198,6 +198,7 @@ router.post('/api/state/filter', async (req, res, next) => {
     const experienceResult = experiencesDb.map(function(experience) {
       const o = { ...experience }
       o.seoLink = helper.getSeoLink(experience.title)
+      o.stateSeoLink = helper.getSeoLink(experience.stateName)
       return o
     })
     const countResult = await statesModel.updateStateExperienceCount(

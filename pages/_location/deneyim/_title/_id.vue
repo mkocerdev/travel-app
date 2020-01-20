@@ -124,7 +124,7 @@
           <div class="experience-similar">
             <subtitle title="Benzer Seyahatler" />
             <div class="similar-content">
-              Ha burayada benzer seyatler gelecek
+              <similar-experience :experiences="similar" :boxSize="3" />
             </div>
           </div>
         </div>
@@ -156,6 +156,7 @@ import comments from '~/components/experiences/detail/comments.vue'
 import location from '~/components/experiences/detail/location.vue'
 import notes from '~/components/experiences/detail/notes.vue'
 import subtitle from '~/components/experiences/detail/subtitle.vue'
+import similarExperience from '~/components/experiences/experiencesList.vue'
 export default {
   components: {
     breadcrumb,
@@ -179,7 +180,8 @@ export default {
     comments,
     location,
     notes,
-    subtitle
+    subtitle,
+    similarExperience
   },
   computed: {
     breadcrumbs() {
@@ -194,7 +196,12 @@ export default {
         },
         {
           link:
-            '/deneyim/' + this.experience.seoLink + '/' + this.experience.id,
+            '/' +
+            this.stateInfo.seoLink +
+            '/deneyim/' +
+            this.experience.seoLink +
+            '/' +
+            this.experience.id,
           label: this.experience.title
         }
       ]
@@ -228,6 +235,9 @@ export default {
     },
     reservations() {
       return this.$store.state.experienceDetail.reservations
+    },
+    similar() {
+      return this.$store.state.experienceDetail.similar
     }
   },
   async fetch({ route, params, error, store }) {
@@ -238,7 +248,7 @@ export default {
     } catch (e) {
       error({
         statusCode: 404,
-        message: 'Böyle bir ürün bulunamadı. Lütfen daha sonra tekrar deneyiniz'
+        message: e
       })
     }
   }

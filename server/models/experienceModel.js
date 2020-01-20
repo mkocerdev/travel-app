@@ -4,7 +4,7 @@ const experience = {}
 experience.all = () => {
   return new Promise((resolve, reject) => {
     sql.query(
-      'SELECT e.*, ep.price, s.name as stateName FROM experience e INNER JOIN experience_property ep ON e.id = ep.id LEFT JOIN states as s ON ep.stateId = s.id',
+      'SELECT e.id, e.title, e.photo, ep.price, s.name as stateName, CONVERT(AVG(DISTINCT er.star), DECIMAL(10,1)) as avgRate FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id LEFT JOIN experience_rating as er ON e.id = er.experienceId GROUP BY e.id',
       (err, res) => {
         if (err) {
           return reject(err)
@@ -33,7 +33,7 @@ experience.getExperience = (id) => {
 experience.getExperienceState = (id) => {
   return new Promise((resolve, reject) => {
     sql.query(
-      'SELECT states.name, states.descr FROM experience INNER JOIN states ON experience.stateId = states.id WHERE experience.id = ?',
+      'SELECT states.id, states.name, states.descr FROM experience INNER JOIN states ON experience.stateId = states.id WHERE experience.id = ?',
       id,
       (err, res) => {
         if (err) {
@@ -121,7 +121,7 @@ experience.getExperienceRateInfo = (id) => {
 experience.getExperiencePrimaryCategory = (id) => {
   return new Promise((resolve, reject) => {
     sql.query(
-      'SELECT categories.categoryName FROM experience INNER JOIN categories ON experience.primaryCategory = categories.id where experience.id = ?',
+      'SELECT c.* FROM experience_category AS ec INNER JOIN categories c ON ec.categoryId = c.id WHERE ec.type = 1 AND ec.experienceId = ?',
       id,
       (err, res) => {
         if (err) {
@@ -137,6 +137,20 @@ experience.getExperienceReservations = (id) => {
     sql.query(
       'SELECT DATE_FORMAT(startDate, "%d %M %Y") as startDate, DATE_FORMAT(endDate, "%d %M %Y") as endDate,capacity,status FROM reservation WHERE reservation.experienceId = ?',
       id,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+experience.getExperienceSimilar = (experienceId, stateId) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      'SELECT e.id, e.title, e.photo, ep.price, s.name as stateName, CONVERT(AVG(DISTINCT er.star), DECIMAL(10,1)) as avgRate FROM experience as e LEFT JOIN experience_property as ep ON e.id = ep.experienceId LEFT JOIN states as s ON ep.stateId = s.id LEFT JOIN experience_rating as er ON e.id = er.experienceId WHERE e.id <> ?  AND ep.stateId = ? GROUP BY e.id',
+      [experienceId, stateId],
       (err, res) => {
         if (err) {
           return reject(err)
