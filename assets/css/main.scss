@@ -42,6 +42,10 @@ $font : 'Poppins', sans-serif;
 .el-pagination.is-background .el-pager li:not(.disabled):not(.active):hover{
     color: $primary;
 }
+.el-loading-spinner{
+    display: flex;
+    justify-content: center;
+}
 .el-checkbox__inner{
     width: 17px;
     height: 17px;
