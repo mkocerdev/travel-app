@@ -2,24 +2,17 @@
   <section class="home-search">
     <div class="home-search-inner w-8/12 m-auto">
       <div class="home-search__box w-full">
-        <div class="home-search__head w-full">
-          <h1 class="home-search__heading">
-            Binlerce deneyim içerisinde arama yapın
-          </h1>
-        </div>
-        <div class="home-search__wrapper mb-3 w-full float-left">
+        <div class="home-search__wrapper w-full float-left">
           <form @submit.prevent="(event) => submitForm(event)" method="post">
-            <div class="home-search__tour w-5/12 float-left">
+            <div class="home-search__tour w-4/12 float-left">
               <el-select
                 v-model="value"
                 :remote-method="remoteMethod"
                 :loading="loading"
                 class="w-full"
                 filterable
-                style="height:60px"
                 remote
-                reserve-keyword
-                placeholder="Tur Adı, Şehir ve Tema Giriniz"
+                placeholder="Şehir Seçiniz"
               >
                 <el-option
                   v-for="item in defaultStates"
@@ -29,40 +22,11 @@
                 >
                 </el-option>
               </el-select>
-
               <i class="home-search__tour-icon el-icon-location-outline"></i>
             </div>
-            <div class="home-search__period w-5/12 float-left">
-              <el-select
-                v-model="value2"
-                class="w-full"
-                multiple
-                collapse-tags
-                placeholder="Dönem Seçiniz"
-              >
-                <el-option label="Herhangi bir dönem" value="all"> </el-option>
-                <el-option
-                  :label="moment(date).format('MMMM YYYY')"
-                  :value="moment(date).format('l')"
-                >
-                </el-option>
-                <el-option
-                  v-for="i in 11"
-                  :key="i"
-                  :label="
-                    moment(date)
-                      .add(i, 'months')
-                      .format('MMMM YYYY')
-                  "
-                  :value="
-                    moment(date)
-                      .add(i, 'months')
-                      .format('l')
-                  "
-                >
-                </el-option>
-              </el-select>
-              <i class="home-search__date-icon el-icon-date"></i>
+            <div class="home-search__period w-6/12 float-left">
+              <el-input v-model="searchQuery" placeholder="Deneyim arayın" />
+              <i class="home-search__date-icon el-icon-search"></i>
             </div>
             <div class="home-search__button-wrapper w-2/12 float-left">
               <button class="home-search__button">Ara</button>
@@ -74,7 +38,6 @@
   </section>
 </template>
 <script>
-import moment from 'moment'
 export default {
   props: {
     states: {
@@ -88,14 +51,12 @@ export default {
   },
   data() {
     return {
-      moment,
       date: '',
       defaultStates: [],
       value: [],
       list: [],
       loading: false,
-      period: [],
-      value2: []
+      searchQuery: ''
     }
   },
   mounted() {
@@ -105,10 +66,6 @@ export default {
     this.defaultStates = this.popularStates.map((item) => {
       return { value: item.id, label: item.name, seoLink: item.seoLink }
     })
-  },
-  created() {
-    moment.locale('tr')
-    this.getNow()
   },
   methods: {
     remoteMethod(query) {
@@ -126,14 +83,11 @@ export default {
         this.defaultStates = []
       }
     },
-    getNow() {
-      this.date = moment()
-    },
     submitForm(e) {
       e.preventDefault()
-      if (!this.value || !this.value2) {
+      if (!this.value) {
         this.$message({
-          message: 'Lütfen arama yapmak için Şehir, Ülke veya Tema Giriniz.',
+          message: 'Lütfen arama yapmak şehir seçiniz.',
           type: 'warning'
         })
         return

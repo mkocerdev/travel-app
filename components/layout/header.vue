@@ -1,5 +1,5 @@
 <template>
-  <div class="header-inner w-full float-left py-2">
+  <div class="header-inner w-full float-left">
     <div class="header-logo w-1/12 float-left">
       <nuxt-link to="/"><Logo :type="true"/></nuxt-link>
     </div>

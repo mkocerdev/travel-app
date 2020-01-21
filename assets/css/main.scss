@@ -95,6 +95,7 @@ $font : 'Poppins', sans-serif;
     position: relative;
     z-index: 2;
     .header-inner{
+        padding: 1rem 4rem;
         display: flex;
         align-items: center;
         flex-flow: row wrap;
@@ -141,8 +142,15 @@ $font : 'Poppins', sans-serif;
                 color: white;
             }
         }
-        .header-bg{
+        .home-bg{
+            position: relative;
+            padding: 10rem 0;
+            width: 100%;
+        }
+        .home-bg-img{
             position: absolute;
+            object-fit: cover;
+            object-position: center;
             width: 100%;
             left: 0;
             top: 0;
@@ -155,24 +163,16 @@ $font : 'Poppins', sans-serif;
 /*.home-search*/
 .home-search{
     width: 100%;
-    height: 55vh;
-    min-height: 515px;
-    max-height: 800px;
     position: relative;
-    overflow: hidden;
-    display: flex;
+    display: flex; 
+    margin-top: -2rem;
+    margin-bottom: 4rem;
     .home-search-inner{
-        height: 100%;
-        padding-top: 110px;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 2;
         .home-search__box{
-            padding: 5rem 4rem;
-            border-radius: 5px;
-            background: white;
-            box-shadow: 0px 0px 20px 20px rgba(156, 156, 156, 0.149);
             .home-search__heading{
                 color: #252525;
                 font-weight: bold;
@@ -180,14 +180,16 @@ $font : 'Poppins', sans-serif;
                 margin-bottom: 1.5rem;
             }
             .home-search__tour{
-                padding-right: 1rem;
+                padding-right: 5px;
                 position: relative;
                 .el-input__inner{
                     width: 100%;
-                    height: 55px;
+                    height: 60px;
                     padding: 0 1rem 0 3rem;
                     border-radius: 4px;
-                    background: #eaeef3;  
+                    background: #ffffff;
+                    box-shadow: 0 5px 18px 0 rgba(0,0,0,.1);
+                    border: 0;
                     &::placeholder{
                         font-size: 14px;
                         color: #a0aec0;
@@ -195,28 +197,31 @@ $font : 'Poppins', sans-serif;
                 }
                 .home-search__tour-icon{
                     position: absolute;
-                    left: 11px;
-                    line-height: 55px;
-                    color: #4c4b4b;
-                    font-size: 22px;
+                    left: 12px;
+                    line-height: 60px;
+                    color: #828282;
+                    font-size: 25px;
+                    z-index: 1;
                 }
             }
             .home-search__period{
-                padding-right: 1rem; 
+                padding-right: 5px; 
                 position: relative;
                 .home-search__date-icon{
                     position: absolute;
-                    left: 11px;
-                    line-height: 55px;
-                    color: #4c4b4b;
+                    left: 14px;
+                    line-height: 60px;
+                    color: #828282;
                     font-size: 21px;
                 }
                 .el-input__inner{
                     width: 100%;
-                    height: 55px;
+                    height: 60px;
                     padding: 0 1rem 0 3rem;
                     border-radius: 4px;
-                    background: #eaeef3;  
+                    background: #ffffff;
+                    border: 0;
+                    box-shadow: 0 5px 18px 0 rgba(0,0,0,.1);
                     &::placeholder{
                         font-size: 14px;
                         color: #a0aec0;
@@ -237,10 +242,10 @@ $font : 'Poppins', sans-serif;
                 .home-search__button{
                     width: 100%;
                     font-size: 14px;
-                    height: 55px;
+                    height: 60px;
                     padding: 0 1rem;
                     border-radius: 4px;
-                    background: $primary;
+                    background-image: linear-gradient(to top, #0cbf70 0%, #1baf34 100%);
                     color: #fff;
                     font-weight: bold;
                 }
@@ -944,6 +949,10 @@ $font : 'Poppins', sans-serif;
                 display: flex;
                 align-items: center;
                 flex-flow: row wrap;
+                .el-rate__icon{
+                    margin-right: 3px;
+                    font-size: 15px;
+                }
                 .experience-info__rate-number{
                     float: left;
                 }

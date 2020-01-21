@@ -1,5 +1,5 @@
 <template>
-  <div class="header-inner w-full float-left py-4 px-16">
+  <div class="header-inner w-full float-left">
     <div class="header-logo w-3/12 float-left">
       <nuxt-link to="/"><Logo :type="false"/></nuxt-link>
     </div>
@@ -27,27 +27,14 @@
         </li>
       </ul>
     </div>
-    <home-search :states="states" :popularStates="popularStates" />
-    <div class="header-bg">
-      <img class="home-bg__img" src="@/assets/images/slide.jpg" />
-    </div>
+    <img class="home-bg-img" src="@/assets/images/slide1.jpg" />
+    <div class="home-bg"></div>
   </div>
 </template>
 
 <script>
-import HomeSearch from '~/components/home/searchContainer.vue'
 export default {
   name: 'HeaderComponent',
-  components: {
-    HomeSearch
-  },
-  computed: {
-    states() {
-      return this.$store.state.States.states
-    },
-    popularStates() {
-      return this.$store.state.States.popularStates
-    }
-  }
+  components: {}
 }
 </script>
