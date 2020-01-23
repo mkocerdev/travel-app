@@ -10,6 +10,9 @@ const experienceRoutes = require('./routes/experienceRoutes')
 const statesRoutes = require('./routes/statesRoutes')
 const app = express()
 async function start() {
+  process.on('uncaughtException', function(err) {
+    console.log(err)
+  })
   app.use(cors())
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
