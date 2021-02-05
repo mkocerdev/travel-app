@@ -1,6 +1,7 @@
 const env = require('dotenv').config()
 const development = process.env.NODE_ENV !== 'production'
 module.exports = {
+  target: 'server',
   mode: 'universal',
   env: env.parsed,
   /*
